@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>The Lord of the Rings: The Hunt for Gollum</title>
   
   <!-- Google Fonts -->
@@ -10,8 +10,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
+  <!-- External CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,10 +22,9 @@
       <p>THE HUNT FOR <br><span>GOLLUM</span></p>
     </div>
     
-     <nav>
-    <button class="dropbtn"><i class="fas fa-bars"></i></button>
-   
-      <ul class="dropdown-content">
+    <nav>
+      <button class="dropbtn" id="menuToggle"><i class="fas fa-bars"></i></button>
+      <ul class="dropdown-content" id="dropdownMenu">
         <li><a href="#">Journey</a></li>
         <li><a href="#">Cast</a></li>
         <li><a href="#">Gallery</a></li>
@@ -34,12 +35,17 @@
   </header>
   
   <main>
-    <section >
+    <section>
       <div class="hero">
-        <p>LORD OF THE RINGS:</p>
-        <h1>THE HUNT FOR <br><span>GOLLUM</span></h1>
-        <button class="goldbtn"><a href="#">WATCH TEASER TRAILER <i class="fas fa-play"></i></a></button>
-     </div>
+        <div class="hero-content">
+          <p>LORD OF THE RINGS:</p>
+          <h1>THE HUNT FOR <br><span>GOLLUM</span></h1>
+          <button class="goldbtn"><a href="#" id="watchTrailerBtn">WATCH TEASER TRAILER <i class="fas fa-play"></i></a></button>
+        </div>
+        <div class="hero-image desktop-only">
+          <img src="ring.png" alt="The One Ring" onerror="this.src='https://placehold.co/280x280/1a1a1a/b8860b?text=The+One+Ring'">
+        </div>
+      </div>
     </section>
     
     <section class="about">
@@ -51,9 +57,9 @@
       <div class="director-about abt">
         <h2>The director</h2>
         <div>
-        <p class="description"><span>Will Andy Serkis return as Gollum?</span>
-Yes. Andy Serkis is expected to both direct the movie and reprise his iconic role as Gollum/Sméagol.</p>
-          <img src="host.jpeg" alt="Andy Serkis' photo">
+          <p class="description"><span>Will Andy Serkis return as Gollum?</span><br><br>
+          Yes. Andy Serkis is expected to both direct the movie and reprise his iconic role as Gollum/Sméagol.</p>
+          <img src="host.jpeg" alt="Andy Serkis photo" onerror="this.src='https://placehold.co/400x300/1a1a1a/b8860b?text=Andy+Serkis'">
         </div>
       </div>
     </section>
@@ -62,51 +68,62 @@ Yes. Andy Serkis is expected to both direct the movie and reprise his iconic rol
       <h2>Meet the Hunters</h2>
       
       <div class="teamdiv">
-      <div class="cast-card">
-        <img src="andy.jpeg" alt="Andy Serkins">
-        <p class="cast-name">Andy Serkins</p>
-        <p class="cast-role">as Gollum/ Smeagol</p>
+        <div class="cast-card">
+          <img src="andy.jpeg" alt="Andy Serkis" onerror="this.src='https://placehold.co/230x250/1a1a1a/b8860b?text=Andy+Serkis'">
+          <p class="cast-name">Andy Serkis</p>
+          <p class="cast-role">as Gollum / Sméagol</p>
+        </div>
+        
+        <div class="cast-card">
+          <img src="Jamie.jpeg" alt="Jamie Dornan" onerror="this.src='https://placehold.co/230x250/1a1a1a/b8860b?text=Jamie+Dornan'">
+          <p class="cast-name">Jamie Dornan</p>
+          <p class="cast-role">as Strider / Aragorn</p>
+        </div>
+        
+        <div class="cast-card">
+          <img src="ian.jpeg" alt="Ian McKellen" onerror="this.src='https://placehold.co/230x250/1a1a1a/b8860b?text=Ian+McKellen'">
+          <p class="cast-name">Ian McKellen</p>
+          <p class="cast-role">as Gandalf</p>
+        </div>
+        
+        <div class="cast-card">
+          <img src="kate.jpeg" alt="Kate Winslet" onerror="this.src='https://placehold.co/230x250/1a1a1a/b8860b?text=Kate+Winslet'">
+          <p class="cast-name">Kate Winslet</p>
+          <p class="cast-role">as Marigol</p>
+        </div>
+        
+        <div class="cast-card">
+          <img src="leo.jpeg" alt="Leo Woodall" onerror="this.src='https://placehold.co/230x250/1a1a1a/b8860b?text=Leo+Woodall'">
+          <p class="cast-name">Leo Woodall</p>
+          <p class="cast-role">as Halvard</p>
+        </div>
+        
+        <div class="cast-card">
+          <img src="lee.jpeg" alt="Lee Pace" onerror="this.src='https://placehold.co/230x250/1a1a1a/b8860b?text=Lee+Pace'">
+          <p class="cast-name">Lee Pace</p>
+          <p class="cast-role">as Thranduil</p>
+        </div>
+        
+        <div class="cast-card">
+          <img src="elijah.jpeg" alt="Elijah Wood" onerror="this.src='https://placehold.co/230x250/1a1a1a/b8860b?text=Elijah+Wood'">
+          <p class="cast-name">Elijah Wood</p>
+          <p class="cast-role">as Frodo Baggins</p>
+        </div>
       </div>
-      
-      <div class="cast-card">
-        <img src="Jamie.jpeg" alt="James Dornan">
-        <p class="cast-name">Jamie Dornan</p>
-        <p class="cast-role">as Strider/ Aragon</p>
-      </div>
-      
-      <div class="cast-card">
-        <img src="ian.jpeg" alt="Ian Mckellen">
-        <p class="cast-name">Ian McKellen</p>
-        <p class="cast-role">as Gandalf</p>
-      </div>
-      
-      <div class="cast-card">
-        <img src="kate.jpeg" alt="Kate Winslet">
-        <p class="cast-name">Kate Winslet</p>
-        <p class="cast-role">as Marigol</p>
-      </div>
-      
-      <div class="cast-card">
-        <img src="leo.jpeg" alt="Leo Woodal">
-        <p class="cast-name">Leo Woodal</p>
-        <p class="cast-role">as Halvard</p>
-      </div>
-      
-      <div class="cast-card">
-        <img src="lee.jpeg" alt="Lee Pace">
-        <p class="cast-name">Lee Pace</p>
-        <p class="cast-role">as Thranduil</p>
-      </div>
-      
-      <div class="cast-card">
-        <img src="elijah.jpeg" alt="Elijah wood">
-        <p class="cast-name">Elijah Wood</p>
-        <p class="cast-role">as Frodo Baggin</p>
-      </div>
-      </div>
-      
     </section>
-    
   </main>
+
+  <!-- Trailer Modal -->
+  <div id="trailerModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <div class="video-container">
+        <iframe id="trailerVideo" width="100%" height="100%" src="https://www.youtube.com/embed/4M87I71CvN0?si=placeholder" title="The Hunt for Gollum Teaser Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- External JavaScript -->
+  <script src="script.js"></script>
 </body>
 </html>
