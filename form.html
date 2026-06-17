@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>LOTR - Collaborator Form</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Alex+Brush&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="form.css" />
+</head>
+<body>
+  <section class="scroll">
+    <div>
+      <form action="#" autocomplete="off">
+        <!-- Personal Details -->
+        <div>
+          <label for="name">Full Name</label>
+          <input id="name" type="text" placeholder="e.g., Aragorn, son of Arathorn" required />
+        </div>
+        <div>
+          <label for="email">Email Address</label>
+          <input id="email" type="email" placeholder="fellow@middle-earth.com" required />
+        </div>
+        <div>
+          <label for="phone">Phone Number</label>
+          <input id="phone" type="tel" placeholder="+123 456 7890" required />
+        </div>
+        <div>
+          <label for="address">Residential Address</label>
+          <input id="address" type="text" placeholder="e.g., Bag End, Hobbiton" required />
+        </div>
+        <div>
+          <label for="dob">Date of Birth</label>
+          <input id="dob" type="date" required />
+        </div>
+        <div>
+          <label for="code">Postal Code</label>
+          <input id="code" type="text" maxlength="6" placeholder="e.g., 1234" />
+        </div>
+
+        <!-- Gender -->
+        <div>
+          <label>Gender</label>
+          <div class="check">
+            <label for="male">Male</label>
+            <input id="male" type="radio" name="gender" value="male" />
+            <label for="female">Female</label>
+            <input id="female" type="radio" name="gender" value="female" />
+          </div>
+        </div>
+
+        <!-- Marital Status -->
+        <div>
+          <label>Marital Status</label>
+          <div class="check">
+            <label for="single">Single</label>
+            <input id="single" type="radio" name="status" value="single" />
+            <label for="married">Married</label>
+            <input id="married" type="radio" name="status" value="married" />
+            <label for="divorced">Divorced</label>
+            <input id="divorced" type="radio" name="status" value="divorced" />
+          </div>
+        </div>
+
+        <!-- Nationality -->
+        <div>
+          <label for="nation">Nationality</label>
+          <input id="nation" type="text" placeholder="e.g., Gondorian" required />
+        </div>
+
+        <!-- Educational Qualifications -->
+        <div>
+          <label for="edu">Educational Qualifications</label>
+          <textarea id="edu" rows="4" placeholder="List your qualifications..."></textarea>
+        </div>
+
+        <!-- Languages -->
+        <div>
+          <label for="lang">Languages Spoken</label>
+          <textarea id="lang" rows="3" placeholder="e.g., Westron, Sindarin, Quenya"></textarea>
+        </div>
+
+        <!-- Skills -->
+        <div>
+          <label for="skill">Skills</label>
+          <textarea id="skill" rows="4" placeholder="List your skills..."></textarea>
+        </div>
+
+        <!-- Hobbies -->
+        <div>
+          <label for="hobby">Hobbies</label>
+          <textarea id="hobby" rows="3" placeholder="e.g., Walking, Reading, Sword-fighting"></textarea>
+        </div>
+
+        <!-- Submit -->
+        <input type="submit" value="Send Application ✧" />
+      </form>
+    </div>
+  </section>
+
+  <!-- Your existing book.js is referenced, but not needed here -->
+  <script src="form.js"></script>
+</body>
+</html>

@@ -14,7 +14,7 @@ body {
   padding: 10px;
   border-radius: 10px;
   /* Greenish-gold overlay on background image */
-  background: linear-gradient(rgba(25, 45, 20, 0.3), rgba(25, 45, 20, 0.3)) , url("bg.png");
+  background: linear-gradient(rgba(25, 45, 20, 0.3), rgba(25, 45, 20, 0.3)), url("bg.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -100,7 +100,7 @@ nav {
     flex-direction: column;
     position: absolute;
     background-color: rgba(10, 45, 20, 0.4);
-    min-width: 100px;
+    min-width: 180px;
     right: 0;
     top: 50px;
     box-shadow: 0px 0px 15px 3px #b8860b;
@@ -112,7 +112,7 @@ nav {
   
   .dropdown-content li {
     padding: 12px 24px;
-    text-align: centwr;
+    text-align: center;
     border-bottom: 1px solid rgba(184, 134, 11, 0.3);
   }
   
@@ -181,8 +181,8 @@ nav {
 }
 
 .hero-image img {
-  max-width: 280px;
-  width: 80%;
+  max-width: 200px;
+  width: 100%;
   height: auto;
   border-radius: 20px;
   box-shadow: 0px 0px 25px 8px rgba(184, 134, 11, 0.4);
@@ -211,6 +211,11 @@ nav {
     flex: 0.5;
     text-align: right;
   }
+  
+  .hero-image img {
+    max-width: 220px;
+    width: 70%;
+  }
 }
 
 .hero p {
@@ -226,6 +231,7 @@ nav {
 @media (max-width: 767px) {
   .hero p {
     text-align: center;
+    font-size: 22px;
   }
   .hero h1 {
     text-align: center;
@@ -270,7 +276,7 @@ h1 span {
   transform: scale(1.05);
 }
 
-.goldbtn::before {
+.goldbtn:before {
   content: "";
   position: absolute;
   inset: 0;
@@ -332,16 +338,16 @@ h1 span {
 
 .movie-about p {
   margin: 15px 0;
-  line-height: 1.6;
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
+  line-height: 1.8;
+  font-family: 'Playfair Display ', serif;
+  font-size: 16px;
 }
 
 .director-about div p {
   margin: 15px 0;
-  line-height: 1.6;
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
+  line-height: 1.8;
+  font-family: 'Playfair Display ', serif;
+  font-size: 16px;
 }
 
 .director-about div p span {
@@ -355,12 +361,14 @@ h1 span {
 
 .director-about div img {
   width: 100%;
+  max-width: 280px;
   height: auto;
   border-radius: 30px;
   box-shadow: 0px 0px 8px 4px #b8860b;
   padding: 8px;
   background: rgba(0, 0, 0, 0.3);
   margin-top: 15px;
+  display: block;
 }
 
 @media (min-width: 600px) {
@@ -372,15 +380,37 @@ h1 span {
   
   .director-about div p {
     flex: 1;
+    font-size: 18px;
   }
   
   .director-about div img {
-    flex: 0.8;
+    flex: 0 0 30%;
+    max-width: 250px;
     margin-top: 0;
+  }
+  
+  .movie-about p {
+    font-size: 18px;
   }
   
   .about {
     padding: 20px 30px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .movie-about p {
+    font-size: 20px;
+    max-width: 80%;
+  }
+  
+  .director-about div p {
+    font-size: 20px;
+  }
+  
+  .director-about div img {
+    flex: 0 0 25%;
+    max-width: 280px;
   }
 }
 
@@ -473,7 +503,7 @@ h1 span {
 .cast-role {
   font-weight: 500;
   font-size: 13px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Playfair Display ', serif;
   color: #a0a0a0;
 }
 
@@ -552,7 +582,7 @@ h1 span {
 /* Responsive adjustments */
 @media (max-width: 480px) {
   body {
-    margin: 3px;
+    margin: 10px;
     padding: 4px;
   }
   
@@ -561,11 +591,19 @@ h1 span {
   }
   
   h1 span {
-    font-size: 42px;
+    font-size: 50px;
   }
   
   .hero {
     padding: 40px 15px;
+  }
+  
+  .hero p {
+    font-size: 18px;
+  }
+  
+  .hero-image img {
+    max-width: 160px;
   }
   
   .cast-card {
@@ -575,5 +613,9 @@ h1 span {
   
   .cast-card img {
     height: 220px;
+  }
+  
+  .director-about div img {
+    max-width: 220px;
   }
 }
