@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Red Book of Records</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Admin CSS -->
+  <link rel="stylesheet" href="admin.css" />
+
+  <!-- Supabase JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <!-- ============================================
+       LOGIN MODAL
+  ============================================ -->
+  <div class="login-overlay" id="loginOverlay">
+    <div class="login-container">
+      <div class="login-icon"><i class="fas fa-scroll"></i></div>
+      <h1 class="login-title">Admin page</h1>
+      <p class="login-subtitle">"Only the worthy may enter..."</p>
+
+      <div class="login-error" id="loginError">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="loginErrorMsg">Invalid credentials. Please try again.</span>
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginPassword"><i class="fas fa-key"></i> Password</label>
+          <input type="password" id="loginPassword" placeholder="Enter admin password..." required />
+        </div>
+        <button type="submit" class="login-btn" id="loginBtn">
+          <i class="fas fa-unlock-alt"></i> Enter
+        </button>
+      </form>
+
+      <div class="login-footer">
+        <i class="fas fa-feather-alt"></i> Speak friend and enter
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       ADMIN DASHBOARD
+  ============================================ -->
+  <div class="admin-dashboard" id="adminDashboard">
+
+    <!-- HEADER -->
+    <header class="admin-header">
+      <div class="header-left">
+        <div>
+          <h1><i class="fas fa-scroll"></i> Admin Panel</h1>
+          <p class="subtitle">"The records of those who answered the call..."</p>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <div class="admin-stats">
+          <span><i class="fas fa-users"></i> <span id="totalCount">0</span></span>
+          <span><i class="fas fa-clock"></i> <span id="lastUpdated">—</span></span>
+        </div>
+        <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Leave</button>
+      </div>
+    </header>
+
+    <!-- ==========================================
+         TAB MENU
+    ========================================== -->
+    <div class="tab-menu">
+      <button class="tab-btn active" data-tab="collaborators">
+        <i class="fas fa-user-plus"></i> Collaborators
+        <span class="tab-badge" id="collabBadge">0</span>
+      </button>
+      <button class="tab-btn" data-tab="feedback">
+        <i class="fas fa-comment-dots"></i> Feedback
+        <span class="tab-badge" id="feedbackBadge">0</span>
+      </button>
+    </div>
+
+    <!-- ==========================================
+         COLLABORATORS TAB
+    ========================================== -->
+    <div class="tab-content active" id="tabCollaborators">
+      <!-- TOOLBAR -->
+      <div class="toolbar">
+        <input type="text" id="searchInput" placeholder=" Search by name, email, or nationality..." />
+        <div>
+          <select id="filterGender">
+            <option value="">All Genders</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+          <select id="filterMarital">
+            <option value="">All Status</option>
+            <option value="single">Single</option>
+            <option value="married">Married</option>
+            <option value="divorced">Divorced</option>
+          </select>
+          <button class="refresh-btn" onclick="loadCollaborators()"><i class="fas fa-sync-alt"></i> Refresh</button>
+        </div>
+      </div>
+
+      <!-- TABLE -->
+      <div class="table-wrapper">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th><i class="fas fa-hashtag"></i> ID</th>
+                <th><i class="fas fa-user"></i> Name</th>
+                <th><i class="fas fa-envelope"></i> Email</th>
+                <th><i class="fas fa-phone"></i> Phone</th>
+                <th><i class="fas fa-globe"></i> Nationality</th>
+                <th><i class="fas fa-venus-mars"></i> Gender</th>
+                <th><i class="fas fa-calendar-check"></i> Submitted</th>
+                <th><i class="fas fa-cog"></i> Actions</th>
+              </tr>
+            </thead>
+            <tbody id="collabTableBody">
+              <tr>
+                <td colspan="8">
+                  <div class="loading-state">
+                    <i class="fas fa-spinner fa-pulse"></i>
+                    <p>Loading applications...</p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         FEEDBACK TAB
+    ========================================== -->
+    <div class="tab-content" id="tabFeedback">
+      <!-- TOOLBAR -->
+      <div class="toolbar">
+        <input type="text" id="feedbackSearch" placeholder=" Search by name, email, or message..." />
+        <div>
+          <button class="refresh-btn" onclick="loadFeedback()"><i class="fas fa-sync-alt"></i> Refresh</button>
+        </div>
+      </div>
+
+      <!-- TABLE -->
+      <div class="table-wrapper">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th><i class="fas fa-hashtag"></i> ID</th>
+                <th><i class="fas fa-user"></i> Name</th>
+                <th><i class="fas fa-envelope"></i> Email</th>
+                <th><i class="fas fa-comment"></i> Message</th>
+                <th><i class="fas fa-calendar-check"></i> Submitted</th>
+                <th><i class="fas fa-cog"></i> Actions</th>
+              </tr>
+            </thead>
+            <tbody id="feedbackTableBody">
+              <tr>
+                <td colspan="6">
+                  <div class="loading-state">
+                    <i class="fas fa-spinner fa-pulse"></i>
+                    <p>Loading feedback...</p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================================
+       DETAIL MODAL (Collaborators)
+  ============================================ -->
+  <div class="detail-overlay" id="detailModal">
+    <div class="detail-content">
+      <div class="detail-header">
+        <h2><i class="fas fa-scroll"></i> Application Details</h2>
+        <button class="detail-close" id="detailClose">&times;</button>
+      </div>
+      <div class="detail-body" id="detailBody">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       DETAIL MODAL (Feedback)
+  ============================================ -->
+  <div class="detail-overlay" id="feedbackDetailModal">
+    <div class="detail-content">
+      <div class="detail-header">
+        <h2><i class="fas fa-comment-dots"></i> Feedback Details</h2>
+        <button class="detail-close" id="feedbackDetailClose">&times;</button>
+      </div>
+      <div class="detail-body" id="feedbackDetailBody">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin JS -->
+  <script src="admin.js"></script>
+
+</body>
+</html>
