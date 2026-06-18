@@ -1,189 +1,181 @@
 document.addEventListener('DOMContentLoaded', () => {
-
-  const bookOverlay = document.querySelector('.book-overlay');
-  const openBtn = document.getElementById('openBookBtn');
-  const closeBtn = document.querySelector('.close-book');
-  const pages = document.querySelectorAll('.page');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const currentPageSpan = document.getElementById('currentPage');
-  const totalPagesSpan = document.getElementById('totalPages');
   
-  let currentPage = 0;
-  const totalPages = pages.length;
-  let isAnimating = false;
-  let touchStartX = 0;
-  let touchEndX = 0;
-  let isDragging = false;
+  const SUPABASE_URL = 'https://YOUR_PROJECT_ID.supabase.co';
+  const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
 
-  // Set total pages
-  totalPagesSpan.textContent = totalPages;
+  // Initialize Supabase client
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  
+  const form = document.getElementById('collaboratorForm');
+  const statusDiv = document.getElementById('formStatus');
+  const submitBtn = document.querySelector('.submit-btn');
+  
+  function isHoneypotTriggered(formData) {
+    const honeypot = formData.get('honeypot');
+    return honeypot && honeypot.trim() !== '';
+  }
+  
+  function validateForm(data) {
+    const requiredFields = ['name', 'email', 'phone', 'address', 'dob', 'nationality'];
+    const fieldLabels = {
+      name: 'Full Name',
+      email: 'Email Address',
+      phone: 'Phone Number',
+      address: 'Residential Address',
+      dob: 'Date of Birth',
+      nationality: 'Nationality'
+    };
 
-  // ===== OPEN BOOK =====
-  openBtn.addEventListener('click', () => {
-    bookOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    currentPage = 0;
-    updatePages();
-  });
-
-  // ===== CLOSE BOOK =====
-  closeBtn.addEventListener('click', () => {
-    bookOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-  });
-
-  // Click outside to close
-  bookOverlay.addEventListener('click', (e) => {
-    if (e.target === bookOverlay) {
-      bookOverlay.classList.remove('active');
-      document.body.style.overflow = '';
+    for (let field of requiredFields) {
+      if (!data[field] || data[field].trim() === '') {
+        alert(`⚠️ Please fill in your ${fieldLabels[field] || field}`);
+        return false;
+      }
     }
-  });
 
-  // ===== UPDATE PAGES =====
-  function updatePages() {
-    pages.forEach((page, index) => {
-      page.classList.remove('active', 'flipping', 'flipping-back');
-      
-      if (window.innerWidth >= 768) {
-        // Desktop: show two pages (current and next)
-        if (index === currentPage || index === currentPage + 1) {
-          page.classList.add('active');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) {
+      alert('⚠️ Please enter a valid email address');
+      return false;
+    }
+
+    if (data.phone.replace(/\D/g, '').length < 6) {
+      alert('⚠️ Please enter a valid phone number (at least 6 digits)');
+      return false;
+    }
+
+    return true;
+  }
+  
+  function setLoadingState(isLoading) {
+    if (!submitBtn) return;
+    if (isLoading) {
+      submitBtn.textContent = 'Sending... ✧';
+      submitBtn.disabled = true;
+    } else {
+      submitBtn.textContent = 'Send Application ✧';
+      submitBtn.disabled = false;
+    }
+  }
+
+  function showSuccess() {
+    if (!form || !statusDiv) return;
+    form.style.display = 'none';
+    statusDiv.style.display = 'block';
+    statusDiv.className = 'success';
+    statusDiv.innerHTML = `
+      <div style="font-family: 'Playfair Display', serif; font-style: italic; text-align: center; padding: 10px;">
+        <i class="fas fa-check-circle" style="font-size: 48px; color: #28a745; margin-bottom: 12px;"></i>
+        <h3 style="font-family: 'Cinzel', serif; color: #4a3228; font-size: 22px; margin-bottom: 6px;">
+          Application Sent!
+        </h3>
+        <p style="color: #8b7355; font-size: 16px; margin: 8px 0;">
+          Thank you, fellow traveler. Your application has been recorded in the Red Book.
+        </p>
+        <p style="color: #b8860b; font-style: italic; font-size: 14px; margin-top: 10px;">
+          "The road goes ever on..."
+        </p>
+      </div>
+    `;
+  }
+
+  function showError(message) {
+    if (!statusDiv) return;
+    statusDiv.style.display = 'block';
+    statusDiv.className = 'error';
+    statusDiv.innerHTML = `
+      <div style="font-family: 'Playfair Display', serif; font-style: italic; text-align: center; padding: 10px; color: #dc3545;">
+        <i class="fas fa-exclamation-circle" style="font-size: 36px; margin-bottom: 8px;"></i>
+        <p style="font-size: 16px;">${message || 'Something went wrong. Please try again.'}</p>
+      </div>
+    `;
+  }
+
+  function hideStatus() {
+    if (!statusDiv) return;
+    statusDiv.style.display = 'none';
+    statusDiv.className = '';
+    statusDiv.innerHTML = '';
+  }
+
+  if (form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      hideStatus();
+      const formData = new FormData(form);
+
+      // 🛡️ HONEYPOT CHECK
+      if (isHoneypotTriggered(formData)) {
+        console.warn('🛡️ Honeypot triggered — submission blocked');
+        showError('Submission blocked. If you are human, please try again.');
+        return;
+      }
+
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        address: formData.get('address'),
+        dob: formData.get('dob'),
+        postal_code: formData.get('code'),
+        gender: formData.get('gender'),
+        marital_status: formData.get('status'),
+        nationality: formData.get('nation'),
+        education: formData.get('edu'),
+        languages: formData.get('lang'),
+        skills: formData.get('skill'),
+        hobbies: formData.get('hobby')
+      };
+
+      if (!validateForm(data)) return;
+
+      setLoadingState(true);
+
+      try {
+        const { error } = await supabase
+          .from('collaborators')
+          .insert([data]);
+
+        if (error) throw error;
+
+        showSuccess();
+
+      } catch (error) {
+        console.error('❌ Supabase Error:', error);
+
+        let userMessage = 'Something went wrong. Please try again.';
+        if (error.code === '23505') {
+          userMessage = 'This email has already been submitted. Please use a different email.';
+        } else if (error.code === '23502') {
+          userMessage = 'Missing required field. Please fill in all required fields.';
         }
-        // Hide prev/next based on position
-        if (index < currentPage || index > currentPage + 1) {
-          page.style.display = 'none';
-        } else {
-          page.style.display = 'block';
-        }
-      } else {
-        // Mobile: show one page
-        if (index === currentPage) {
-          page.classList.add('active');
-          page.style.display = 'block';
-        } else {
-          page.style.display = 'none';
-        }
+
+        showError(userMessage);
+
+        setTimeout(() => {
+          hideStatus();
+        }, 5000);
+
+      } finally {
+        setLoadingState(false);
       }
     });
-
-    // Update counter
-    const displayPage = window.innerWidth >= 768 ? Math.floor(currentPage / 2) + 1 : currentPage + 1;
-    currentPageSpan.textContent = Math.min(displayPage, totalPages);
-
-    // Update buttons
-    const maxPage = window.innerWidth >= 768 ? totalPages - 2 : totalPages - 1;
-    prevBtn.disabled = currentPage === 0;
-    nextBtn.disabled = currentPage >= maxPage;
-
-    // Update drag indicator
-    const dragIndicator = document.querySelector('.cover-instruction');
-    if (dragIndicator && currentPage === 0) {
-      dragIndicator.style.display = 'flex';
-    } else if (dragIndicator) {
-      dragIndicator.style.display = 'none';
-    }
   }
 
-  // ===== NEXT PAGE =====
-  function nextPage() {
-    if (isAnimating) return;
-    const maxPage = window.innerWidth >= 768 ? totalPages - 2 : totalPages - 1;
-    if (currentPage >= maxPage) return;
-
-    isAnimating = true;
-    const current = pages[currentPage];
-    const next = pages[currentPage + 1];
-
-    if (current) current.classList.add('flipping');
-    if (next) next.classList.add('flipping');
-
-    setTimeout(() => {
-      if (window.innerWidth >= 768) {
-        currentPage += 2;
-      } else {
-        currentPage += 1;
+  if (form) {
+    document.addEventListener('click', function(e) {
+      if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+        document.activeElement?.blur();
       }
-      updatePages();
-      isAnimating = false;
-    }, 600);
+    });
   }
 
-  // ===== PREV PAGE =====
-  function prevPage() {
-    if (isAnimating) return;
-    if (currentPage <= 0) return;
-
-    isAnimating = true;
-    const current = pages[currentPage];
-    const prev = pages[currentPage - 1];
-
-    if (current) current.classList.add('flipping-back');
-    if (prev) prev.classList.add('flipping-back');
-
-    setTimeout(() => {
-      if (window.innerWidth >= 768) {
-        currentPage -= 2;
-      } else {
-        currentPage -= 1;
-      }
-      if (currentPage < 0) currentPage = 0;
-      updatePages();
-      isAnimating = false;
-    }, 600);
-  }
-
-  // ===== EVENT LISTENERS =====
-  prevBtn.addEventListener('click', prevPage);
-  nextBtn.addEventListener('click', nextPage);
-
-  // ===== KEYBOARD SUPPORT =====
-  document.addEventListener('keydown', (e) => {
-    if (!bookOverlay.classList.contains('active')) return;
-    if (e.key === 'ArrowRight') nextPage();
-    if (e.key === 'ArrowLeft') prevPage();
-    if (e.key === 'Escape') {
-      bookOverlay.classList.remove('active');
-      document.body.style.overflow = '';
+  window.addEventListener('beforeunload', function() {
+    if (form) {
+      form.reset();
     }
   });
 
-  // ===== TOUCH / SWIPE SUPPORT (mobile) =====
-  const bookContainer = document.getElementById('bookContainer');
-
-  bookContainer.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-    isDragging = true;
-  }, { passive: true });
-
-  bookContainer.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    touchEndX = e.changedTouches[0].screenX;
-  }, { passive: true });
-
-  bookContainer.addEventListener('touchend', (e) => {
-    if (!isDragging) return;
-    isDragging = false;
-    const diff = touchStartX - touchEndX;
-    
-    // Swipe left = next, swipe right = prev
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) {
-        nextPage();
-      } else {
-        prevPage();
-      }
-    }
-  }, { passive: true });
-
-  // ===== WINDOW RESIZE =====
-  window.addEventListener('resize', () => {
-    updatePages();
-  });
-
-  // ===== INIT =====
-  updatePages();
-
+  console.log('🧙‍♂️ LOTR Collaborator Form ready with Supabase + Honeypot');
 });
-

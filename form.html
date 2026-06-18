@@ -11,33 +11,37 @@
   <link rel="stylesheet" href="form.css" />
 </head>
 <body>
+  
+  <h1>Cast Collaborator Form</h1>
+  <p>Want to be part of the team? Register in some easy steps.</p>
+  
   <section class="scroll">
     <div>
-      <form action="#" autocomplete="off">
+      <form id="collaboratorForm" autocomplete="on">
         <!-- Personal Details -->
         <div>
           <label for="name">Full Name</label>
-          <input id="name" type="text" placeholder="e.g., Aragorn, son of Arathorn" required />
+          <input id="name" type="text" name="name" placeholder="e.g., Aragorn, son of Arathorn" required />
         </div>
         <div>
           <label for="email">Email Address</label>
-          <input id="email" type="email" placeholder="fellow@middle-earth.com" required />
+          <input id="email" type="email" name="email" placeholder="fellow@middle-earth.com" required />
         </div>
         <div>
           <label for="phone">Phone Number</label>
-          <input id="phone" type="tel" placeholder="+123 456 7890" required />
+          <input id="phone" type="tel" name="phone" placeholder="+123 456 7890" required />
         </div>
         <div>
           <label for="address">Residential Address</label>
-          <input id="address" type="text" placeholder="e.g., Bag End, Hobbiton" required />
+          <input id="address" type="text" name="address" placeholder="e.g., Bag End, Hobbiton" required />
         </div>
         <div>
           <label for="dob">Date of Birth</label>
-          <input id="dob" type="date" required />
+          <input id="dob" type="date" name="dob" required />
         </div>
         <div>
           <label for="code">Postal Code</label>
-          <input id="code" type="text" maxlength="6" placeholder="e.g., 1234" />
+          <input id="code" type="text" name="code" maxlength="6" placeholder="e.g., 1234" />
         </div>
 
         <!-- Gender -->
@@ -67,40 +71,54 @@
         <!-- Nationality -->
         <div>
           <label for="nation">Nationality</label>
-          <input id="nation" type="text" placeholder="e.g., Gondorian" required />
+          <input id="nation" type="text" name="nation" placeholder="e.g., Gondorian" required />
         </div>
 
         <!-- Educational Qualifications -->
         <div>
           <label for="edu">Educational Qualifications</label>
-          <textarea id="edu" rows="4" placeholder="List your qualifications..."></textarea>
+          <textarea id="edu" name="edu" rows="4" placeholder="List your qualifications..."></textarea>
         </div>
 
         <!-- Languages -->
         <div>
           <label for="lang">Languages Spoken</label>
-          <textarea id="lang" rows="3" placeholder="e.g., Westron, Sindarin, Quenya"></textarea>
+          <textarea id="lang" name="lang" rows="3" placeholder="e.g., Westron, Sindarin, Quenya"></textarea>
         </div>
 
         <!-- Skills -->
         <div>
           <label for="skill">Skills</label>
-          <textarea id="skill" rows="4" placeholder="List your skills..."></textarea>
+          <textarea id="skill" name="skill" rows="4" placeholder="List your skills..."></textarea>
         </div>
 
         <!-- Hobbies -->
         <div>
           <label for="hobby">Hobbies</label>
-          <textarea id="hobby" rows="3" placeholder="e.g., Walking, Reading, Sword-fighting"></textarea>
+          <textarea id="hobby" name="hobby" rows="3" placeholder="e.g., Walking, Reading, Sword-fighting"></textarea>
+        </div>
+        
+        <!-- Honeypot - hidden field to catch spam bots -->
+        <div style="display: none;">
+          <label for="honeypot">Leave this empty</label>
+          <input id="honeypot" type="text" name="honeypot" />
         </div>
 
-        <!-- Submit -->
-        <input type="submit" value="Send Application ✧" />
+        <!-- Submit Button -->
+        <div class="submit-wrapper">
+          <button type="submit" class="submit-btn">
+            Send Application ✧
+          </button>
+        </div>
+        
       </form>
+
+      <div id="formStatus" style="display: none;"></div>
     </div>
   </section>
 
-  <!-- Your existing book.js is referenced, but not needed here -->
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="form.js"></script>
 </body>
 </html>
