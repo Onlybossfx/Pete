@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   
-  const SUPABASE_URL = 'https://YOUR_PROJECT_ID.supabase.co';
-  const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+  const SUPABASE_URL = 'https://slelabwkeijziuefyjob.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsZWxhYndrZWlqeml1ZWZ5am9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3NzIwMDcsImV4cCI6MjA5NzM0ODAwN30.DMSv1vndksl7TM-8JzN1BSljogyVFCF2CUR5ybyMY7o';
 
   // Initialize Supabase client
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -65,15 +65,15 @@ document.addEventListener('DOMContentLoaded', () => {
     statusDiv.className = 'success';
     statusDiv.innerHTML = `
       <div style="font-family: 'Playfair Display', serif; font-style: italic; text-align: center; padding: 10px;">
-        <i class="fas fa-check-circle" style="font-size: 48px; color: #28a745; margin-bottom: 12px;"></i>
+        <i class="fas fa-check-circle" style="font-size: 40px; color: #28a745; margin-bottom: 12px;"></i>
         <h3 style="font-family: 'Cinzel', serif; color: #4a3228; font-size: 22px; margin-bottom: 6px;">
           Application Sent!
         </h3>
         <p style="color: #8b7355; font-size: 16px; margin: 8px 0;">
-          Thank you, fellow traveler. Your application has been recorded in the Red Book.
+          Thank you, fellow traveler. Your application has been recorded in the Big Book.
         </p>
-        <p style="color: #b8860b; font-style: italic; font-size: 14px; margin-top: 10px;">
-          "The road goes ever on..."
+        <p style="color: #b8860b; font-style: italic; font-size: 14px; margin-top: 10px; font-weight: bold;"> 
+          "Not all those who wamder are lost..."
         </p>
       </div>
     `;
