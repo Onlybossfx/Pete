@@ -168,7 +168,7 @@ nav {
 }
 
 /* ============================================
-   HERO SECTION
+   HERO SECTION (FIXED)
 ============================================ */
 .hero {
   display: flex;
@@ -177,8 +177,8 @@ nav {
   justify-content: center;
   width: 100%;
   min-height: auto;
-  padding: 60px 20px;
-  gap: 40px;
+  padding: 40px 20px;
+  gap: 30px;
 }
 
 .hero-content {
@@ -202,17 +202,31 @@ nav {
   transform: scale(1.02);
 }
 
+/* Desktop adjustments: larger text, bigger image, tighter gap */
 @media (min-width: 768px) {
   .hero {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 60px 40px;
+    padding: 30px 20px;
+    gap: 20px; /* reduced gap */
   }
   
   .hero-content {
     text-align: left;
     flex: 1;
+  }
+  
+  .hero p {
+    font-size: 28px;  /* larger subtitle */
+  }
+  
+  h1 {
+    font-size: 38px;  /* larger title */
+  }
+  
+  h1 span {
+    font-size: 72px;  /* larger "GOLLUM" */
   }
   
   .desktop-only {
@@ -222,11 +236,12 @@ nav {
   }
   
   .hero-image img {
-    max-width: 220px;
-    width: 70%;
+    max-width: 400px;  /* larger image */
+    width: 100%;
   }
 }
 
+/* Mobile (default) remains unchanged */
 .hero p {
   font-weight: bold;
   font-size: 20px;
@@ -564,10 +579,9 @@ h1 span {
   border: 1px solid #b8860b;
   box-shadow: 0px 0px 15px 3px rgba(184, 134, 11, 0.2);
   backdrop-filter: blur(20px);
-  /* Dark overlay on top of background image */
   background: linear-gradient(rgba(10, 7, 4, 0.4), rgba(10, 7, 4, 0.4)), url("contact.png");
   background-position: center;
-  background-size: auto;
+  background-size: 500%;
   background-repeat: no-repeat;
 }
 
@@ -590,7 +604,7 @@ h3 {
   font-size: 20px;
   font-family: 'Cinzel', sans-serif;
   text-align: center;
-  background: linear-gradient(90deg, #8b4513 0%, #a97142 20%, #b8860b 50%, #a97142 70%, #8b4513 100%);
+  background: linear-gradient(90deg, #592907 0%, #994500 20%, #795703 50%, #994500 70%, #592907 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -648,7 +662,7 @@ h3 {
 }
 
 .custom-donate input::placeholder {
-  color: #a08080;
+  color: #5f6205;
   font-style: italic;
 }
 
@@ -669,7 +683,6 @@ h3 {
   border: 1px solid #b8860b;
   box-shadow: 0px 0px 15px 3px rgba(184, 134, 11, 0.2);
   backdrop-filter: blur(20px);
-  /* Dark overlay on top of background image */
   background: linear-gradient(rgba(10, 7, 4, 0.4), rgba(10, 7, 4, 0.4)), url("contact.png");
   background-position: center;
   background-size: 500%;
@@ -701,7 +714,7 @@ h3 {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #d4af37;
+  color: #5b3c04;
 }
 
 .contact form input,
@@ -727,7 +740,7 @@ h3 {
 
 .contact form input::placeholder,
 .contact form textarea::placeholder {
-  color: #a08080;
+  color: #5a46064f;
   font-style: italic;
 }
 
@@ -750,9 +763,9 @@ h3 {
 .mail a {
   display: inline-block;
   padding: 10px 24px;
-  border: 1px solid #b8860b;
+  border: 1px solid #3c2b03;
   border-radius: 50px;
-  color: #d4af37;
+  color: #3c2b03;
   font-family: 'Cinzel', serif;
   font-size: 13px;
   text-decoration: none;
@@ -1036,5 +1049,282 @@ footer {
   .custom-donate .goldbtn {
     width: 100%;
     justify-content: center;
+  }
+}
+
+/* ============================================
+   FAQ SECTION
+============================================ */
+.faq-section {
+  padding: 40px 20px;
+  margin: 40px 0 60px;
+  background: rgba(10, 45, 20, 0.3);
+  border-radius: 16px;
+  border: 1px solid rgba(184, 134, 11, 0.15);
+  backdrop-filter: blur(6px);
+}
+
+@media (min-width: 768px) {
+  .faq-section {
+    padding: 60px 50px;
+    margin: 60px auto;
+    max-width: 900px;
+  }
+}
+
+.faq-title {
+  font-family: 'Cinzel', serif;
+  font-size: 28px;
+  text-align: center;
+  background: linear-gradient(90deg, #8b4513, #b8860b, #d4af37, #b8860b, #8b4513);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 6px;
+}
+
+.faq-subtitle {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #c0a080;
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* --- Each FAQ item --- */
+.faq-item {
+  background: rgba(10, 7, 4, 0.5);
+  border: 1px solid #b8860b;
+  border-radius: 10px;
+  padding: 4px 0;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.faq-item:hover {
+  border-color: #d4af37;
+  box-shadow: 0 0 15px rgba(184, 134, 11, 0.1);
+}
+
+/* --- Question (summary) --- */
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  font-family: 'Cinzel', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #d4af37;
+  cursor: pointer;
+  list-style: none; /* Remove default marker */
+  transition: color 0.2s ease;
+}
+
+/* Remove default triangle in all browsers */
+.faq-question::-webkit-details-marker {
+  display: none;
+}
+.faq-question::marker {
+  content: '';
+}
+
+/* Custom toggle indicator: + / - */
+.faq-question::after {
+  content: '+';
+  font-size: 22px;
+  font-weight: 300;
+  color: #b8860b;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 15px;
+}
+
+.faq-item[open] .faq-question::after {
+  content: '−';
+  transform: rotate(180deg);
+}
+
+/* --- Answer --- */
+.faq-answer {
+  padding: 0 20px 18px 20px;
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #e0d0c0;
+  border-top: 1px solid rgba(184, 134, 11, 0.15);
+  margin-top: 4px;
+}
+
+.faq-answer p {
+  margin: 0;
+}
+
+.faq-answer strong {
+  color: #d4af37;
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  .faq-title {
+    font-size: 24px;
+  }
+  .faq-question {
+    font-size: 14px;
+    padding: 12px 16px;
+  }
+  .faq-answer {
+    font-size: 15px;
+    padding: 0 16px 14px 16px;
+  }
+  .faq-section {
+    padding: 20px 15px;
+    margin: 30px 10px;
+  }
+}
+
+/* ============================================
+   SPONSORS SECTION
+============================================ */
+.sponsors-section {
+  padding: 40px 20px;
+  margin: 40px 0 60px;
+  background: rgba(10, 45, 20, 0.3);
+  border-radius: 16px;
+  border: 1px solid rgba(184, 134, 11, 0.15);
+  backdrop-filter: blur(6px);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .sponsors-section {
+    padding: 60px 50px;
+    margin: 60px auto;
+    max-width: 900px;
+  }
+}
+
+.sponsors-title {
+  font-family: 'Cinzel', serif;
+  font-size: 28px;
+  text-align: center;
+  background: linear-gradient(90deg, #8b4513, #b8860b, #d4af37, #b8860b, #8b4513);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 6px;
+}
+
+.sponsors-subtitle {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #c0a080;
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+/* --- Sponsor Grid --- */
+.sponsors-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.sponsor-item {
+  background: rgba(10, 7, 4, 0.6);
+  border: 1px solid #b8860b;
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  color: #e0d0c0;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.sponsor-item:hover {
+  border-color: #d4af37;
+  box-shadow: 0 0 20px rgba(184, 134, 11, 0.15);
+  transform: translateY(-2px);
+}
+
+/* --- Hidden sponsors --- */
+.hidden-sponsor {
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+
+.sponsors-grid.show-all .hidden-sponsor {
+  display: inline-block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Toggle Button --- */
+.sponsors-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 32px;
+  background: transparent;
+  border: 1px solid #b8860b;
+  border-radius: 50px;
+  color: #d4af37;
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.sponsors-toggle:hover {
+  background: rgba(184, 134, 11, 0.1);
+  box-shadow: 0 0 25px rgba(184, 134, 11, 0.15);
+  transform: scale(1.02);
+}
+
+.sponsors-toggle .toggle-icon {
+  transition: transform 0.3s ease;
+  font-size: 14px;
+}
+
+.sponsors-toggle.active .toggle-icon {
+  transform: rotate(180deg);
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  .sponsors-title {
+    font-size: 24px;
+  }
+  .sponsor-item {
+    font-size: 13px;
+    padding: 8px 14px;
+  }
+  .sponsors-section {
+    padding: 20px 15px;
+    margin: 30px 10px;
+  }
+  .sponsors-toggle {
+    font-size: 12px;
+    padding: 10px 24px;
   }
 }
