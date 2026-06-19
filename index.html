@@ -25,16 +25,17 @@
     <nav>
       <button class="dropbtn" id="menuToggle"><i class="fas fa-bars"></i></button>
       <ul class="dropdown-content" id="dropdownMenu">
-        <li><a href="#">Journey</a></li>
-        <li><a href="#">Cast</a></li>
-        <li><a href="#">Gallery</a></li>
-        <li><a href="#">Donate</a></li>
-        <li><a href="#">News</a></li>
+        <li><a href="#journey">Journey</a></li>
+        <li><a href="#cast">Cast</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#donate">Donate</a></li>
+        <li><a href="#news">News</a></li>
       </ul>
     </nav>
   </header>
   
   <main>
+    <!-- HERO SECTION -->
     <section>
       <div class="hero">
         <div class="hero-content">
@@ -43,35 +44,46 @@
           <button class="goldbtn"><a href="#" id="watchTrailerBtn">WATCH TEASER TRAILER <i class="fas fa-play"></i></a></button>
         </div>
         <div class="hero-image desktop-only">
-          <img src="gollum.jpeg" alt="Gollum" onerror="this.src='https://placehold.co/280x280/1a1a1a/b8860b?text=The+One+Ring'">
+          <img src="gollum.jpeg" alt="Gollum" onerror="this.src='https://placehold.co/280x280/1a1a1a/b8860b?text=Gollum'">
         </div>
       </div>
     </section>
     
+    <!-- ABOUT SECTION -->
     <section class="about">
       <div class="movie-about abt">
-        <h2>The movie</h2>
+        <h2>The Movie</h2>
         <p class="description">The story is expected to focus on the period when Gollum is being hunted by Aragorn and Gandalf before the events of The Lord of the Rings: The Fellowship of the Ring. This hunt is mentioned in Tolkien's lore but was never shown in the original film trilogy.</p>
       </div>
       
       <div class="director-about abt">
-  <h2>The director</h2>
-  <div>
-    <div class="director-text">
-      <p class="description"><span>Will Andy Serkis return as Gollum?</span><br><br>
-      Yes. Andy Serkis is expected to both direct the movie and reprise his iconic role as Gollum/Sméagol. Serkis first brought Gollum to life in Peter Jackson's The Lord of the Rings trilogy, delivering a groundbreaking motion-capture performance that redefined digital character acting and earned him global acclaim.</p>
-    </div>
-    <img src="host.jpeg" alt="Andy Serkis photo" onerror="this.src='https://placehold.co/400x300/1a1a1a/b8860b?text=Andy+Serkis'">
-  </div>
-</div>
+        <h2>The Producer:</h2>
+        <div>
+          <div class="director-text">
+            <p class="description"><span>Sir Peter Robert Jackson</span> (born 31 October 1961) is a New Zealand filmmaker, entrepreneur and visual effects pioneer. He is best known as the director, writer, and producer of the Lord of the Rings trilogy (2001–2003) and the Hobbit trilogy (2012–2014), both of which are adapted from the novels of the same name by J. R. R. Tolkien. Other notable films include the critically lauded drama Heavenly Creatures (1994), the horror comedy The Frighteners (1996), the epic monster remake film King Kong (2005), the World War I documentary film They Shall Not Grow Old (2018) and the documentary The Beatles: Get Back (2021). He is the fourth-highest-grossing film director of all-time, with his films having made over $6.5 billion worldwide.</p>
+          </div>
+          <img src="peter.jpeg" alt="Peter Jackson" onerror="this.src='https://placehold.co/400x300/1a1a1a/b8860b?text=Peter+Jackson'">
+        </div>
+      </div>
+      
+      <div class="director-about abt">
+        <h2>Directed by:</h2>
+        <div>
+          <img src="host.jpeg" alt="Andy Serkis" onerror="this.src='https://placehold.co/400x300/1a1a1a/b8860b?text=Andy+Serkis'">
+          <div class="director-text">
+            <p class="description"><span>Andrew Clement Serkis</span> (born 20 April 1964) is an English actor and filmmaker. He is best known for his motion capture roles comprising motion capture acting, animation and voice work for computer-generated characters such as Gollum in The Lord of the Rings film trilogy (2001–2003) and The Hobbit: An Unexpected Journey (2012), King Kong in the eponymous 2005 film, Caesar in the Planet of the Apes reboot series (2011–2017), Captain Haddock / Sir Francis Haddock in Steven Spielberg's The Adventures of Tintin (2011), Baloo in his self-directed film Mowgli: Legend of the Jungle (2018) and Supreme Leader Snoke in the Star Wars sequel trilogy films The Force Awakens (2015) and The Last Jedi (2017).</p>
+          </div>
+        </div>
+      </div>
     </section>
     
-    <section class="team">
+    <!-- CAST SECTION -->
+    <section class="team" id="cast">
       <h2>Meet the Hunters</h2>
       
       <div class="teamdiv">
         <div class="cast-card">
-          <img src="andy.jpeg" alt="Andy Serkis" onerror="this.src='https://placehold.co/230x250/1a1a1a/b8860b?text=Andy+Serkis'">
+          <img src="host.jpeg" alt="Andy Serkis" onerror="this.src='https://placehold.co/230x250/1a1a1a/b8860b?text=Andy+Serkis'">
           <p class="cast-name">Andy Serkis</p>
           <p class="cast-role">as Gollum / Sméagol</p>
         </div>
@@ -114,35 +126,92 @@
       </div>
     </section>
     
+    <!-- ACTION / DONATE + CONTACT -->
     <section class="action">
-      <div class="donate">
-        <h3>Support The mission</h3>
-        <p class="support"></p>
-        <div>
-        <div class="amount">
-          <button class="coin">5 Caster<span>$5</span></button>
-          <button class="coin">10 Caster<span>$10</span></button>
-          <button class="coin">20 Caster<span>$20</span></button>
-        </div>
-          <div class="">
-            <input type="number" 
+      <div class="donate" id="donate">
+        <h3>Support The Mission</h3>
+        <div class="donate-inner">
+          <div class="amount">
+            <button class="goldbtn coin" data-amount="5">5 Caster <span>$5</span> <i class="fas fa-coins"></i></button>
+            <button class="goldbtn coin" data-amount="10">10 Caster <span>$10</span> <i class="fas fa-coins"></i></button>
+            <button class="goldbtn coin" data-amount="20">20 Caster <span>$20</span> <i class="fas fa-coins"></i></button>
           </div>
+          <div class="custom-donate">
+            <input type="number" id="donateAmount" name="donateAmount" placeholder="Custom amount" min="1">
+            <button class="goldbtn send">Donate <i class="fas fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="contact">
+        <h3>Got any words for the elders or need support?</h3>
+        <form action="#" id="contactForm">
+          <div>
+            <label for="contactName">Your Name</label>
+            <input type="text" id="contactName" name="name" placeholder="Enter your name">
+          </div>
+          <div>
+            <label for="contactEmail">Your Email</label>
+            <input type="email" id="contactEmail" name="email" placeholder="Enter your email">
+          </div>
+          <div>
+            <label for="contactComment">Your Message</label>
+            <textarea id="contactComment" name="comment" rows="4" placeholder="Write your message here..."></textarea>
+          </div>
+          <button type="submit" class="goldbtn send">Send <i class="fas fa-paper-plane"></i></button>
+        </form>
+        <div class="mail">
+          <a href="mailto:petemanagement@gmail.com" target="_blank"><i class="fas fa-envelope"></i> Contact Us Directly</a>
         </div>
       </div>
     </section>
     
+    <!-- PLEA / CALL TO ACTION -->
+    <section class="plea">
+      <div class="container">
+        <h2>Help Bring This Story to Life</h2>
+        <p>Every contribution, no matter the size, helps us create a film worthy of Middle-earth and the fans who love it.</p>
+        <div class="plea-buttons">
+          <button class="goldbtn"><a href="#"><i class="fas fa-heart"></i> Back this Project</a></button>
+          <button class="goldbtn"><a href="#"><i class="fas fa-link"></i> Share with Friends</a></button>
+        </div>
+        <p class="assurance">All funds raised will go directly to production costs</p>
+        <a href="mailto:petemanagement@gmail.com" target="_blank" class="plea-email">Questions? Contact us at production@huntforgollum.film</a>
+      </div>
+    </section>
   </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <p>THE HUNT FOR <br><span>GOLLUM</span></p>
+        <p class="footer-tagline">A fan-made film project</p>
+      </div>
+      <div class="footer-social">
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      </div>
+      <div class="footer-copy">
+        <p>&copy; 2025 The Hunt for Gollum. All rights reserved.</p>
+        <p>This is a fan project and is not affiliated with the Tolkien Estate or Warner Bros.</p>
+      </div>
+    </div>
+  </footer>
 
   <!-- Trailer Modal -->
   <div id="trailerModal" class="modal">
     <div class="modal-content">
       <span class="close-modal">&times;</span>
       <div class="video-container">
-        <iframe id="trailerVideo" width="100%" height="100%" src="https://www.youtube.com/embed/4M87I71CvN0?si=placeholder" title="The Hunt for Gollum Teaser Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe id="trailerVideo" width="100%" height="100%" src="https://www.youtube.com/embed/YYSceespQHs?si=placeholder" title="The Hunt for Gollum Teaser Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </div>
 
+  <!-- External JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>

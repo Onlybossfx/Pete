@@ -221,7 +221,7 @@ body {
 .admin-header .header-left {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 5px;
 }
 
 .admin-header .logout-btn {
@@ -260,18 +260,18 @@ body {
   gap: 20px;
   color: #d4af37;
   font-family: 'Cinzel', serif;
-  font-size: 14px;
+  font-size: 10px;
 }
 
 .admin-stats span {
   background: rgba(184, 134, 11, 0.15);
-  padding: 10px 14px;
+  padding: 5px 7px;
   border-radius: 20px;
   border: 1px solid rgba(184, 134, 11, 0.2);
 }
 
 .admin-stats i {
-  margin-right: 6px;
+  margin-right: 2px;
 }
 
 /* ============================================

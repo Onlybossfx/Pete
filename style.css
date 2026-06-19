@@ -1,3 +1,6 @@
+/* ============================================
+   RESET & BASE
+============================================ */
 * {
   margin: 0;
   padding: 0;
@@ -13,15 +16,19 @@ body {
   margin: 10px;
   padding: 10px;
   border-radius: 10px;
-  /* Greenish-gold overlay on background image */
   background: linear-gradient(rgba(25, 45, 20, 0.3), rgba(25, 45, 20, 0.3)), url("bg.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
   box-sizing: border-box;
+  font-family: 'Playfair Display', serif;
+  color: #c0c0c0;
 }
 
+/* ============================================
+   HEADER & NAVIGATION
+============================================ */
 header {
   display: flex;
   justify-content: space-between;
@@ -93,7 +100,7 @@ nav {
   opacity: 0.8;
 }
 
-/* Mobile menu styles */
+/* Mobile menu */
 @media (max-width: 599px) {
   .dropdown-content {
     display: none;
@@ -129,7 +136,7 @@ nav {
   }
 }
 
-/* Desktop menu styles */
+/* Desktop menu */
 @media (min-width: 600px) {
   .dropbtn {
     display: none;
@@ -160,7 +167,9 @@ nav {
   }
 }
 
-/* Hero Section */
+/* ============================================
+   HERO SECTION
+============================================ */
 .hero {
   display: flex;
   flex-direction: column;
@@ -256,7 +265,9 @@ h1 span {
   display: inline-block;
 }
 
-/* Gold Button */
+/* ============================================
+   GOLD BUTTON
+============================================ */
 .goldbtn {
   position: relative;
   display: inline-flex;
@@ -276,7 +287,7 @@ h1 span {
   transform: scale(1.05);
 }
 
-.goldbtn:before {
+.goldbtn::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -312,7 +323,9 @@ h1 span {
   font-size: 12px;
 }
 
-/* About Sections */
+/* ============================================
+   ABOUT SECTION
+============================================ */
 .about {
   padding: 20px 10px;
 }
@@ -320,7 +333,7 @@ h1 span {
 .abt {
   color: #c0c0c0;
   font-weight: 400;
-  margin: 30px 0;
+  margin: 100px 0;
 }
 
 .abt h2 {
@@ -339,14 +352,14 @@ h1 span {
 .movie-about p {
   margin: 15px 0;
   line-height: 1.8;
-  font-family: 'Playfair Display ', serif;
+  font-family: 'Playfair Display', serif;
   font-size: 16px;
 }
 
 .director-about div p {
   margin: 15px 0;
   line-height: 1.8;
-  font-family: 'Playfair Display ', serif;
+  font-family: 'Playfair Display', serif;
   font-size: 16px;
 }
 
@@ -368,6 +381,10 @@ h1 span {
   padding: 8px;
   background: rgba(0, 0, 0, 0.3);
   margin-top: 15px;
+  display: block;
+}
+
+.director-text {
   display: block;
 }
 
@@ -414,7 +431,9 @@ h1 span {
   }
 }
 
-/* Team Section */
+/* ============================================
+   TEAM / CAST SECTION
+============================================ */
 .team {
   padding: 20px 10px;
   margin: 20px 0;
@@ -503,7 +522,7 @@ h1 span {
 .cast-role {
   font-weight: 500;
   font-size: 13px;
-  font-family: 'Playfair Display ', serif;
+  font-family: 'Playfair Display', serif;
   color: #a0a0a0;
 }
 
@@ -513,7 +532,385 @@ h1 span {
   }
 }
 
-/* Modal Styles */
+/* ============================================
+   ACTION / DONATE + CONTACT
+============================================ */
+.action {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
+  padding: 20px 10px;
+  margin: 40px 0;
+}
+
+@media (min-width: 768px) {
+  .action {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 30px;
+  }
+}
+
+/* --- DONATE SECTION --- */
+.donate {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  border-radius: 16px;
+  border: 1px solid #b8860b;
+  box-shadow: 0px 0px 15px 3px rgba(184, 134, 11, 0.2);
+  backdrop-filter: blur(20px);
+  /* Dark overlay on top of background image */
+  background: linear-gradient(rgba(10, 7, 4, 0.4), rgba(10, 7, 4, 0.4)), url("contact.png");
+  background-position: center;
+  background-size: auto;
+  background-repeat: no-repeat;
+}
+
+@media (min-width: 768px) {
+  .donate {
+    width: 48%;
+  }
+}
+
+.donate-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 20px;
+  font-family: 'Cinzel', sans-serif;
+  text-align: center;
+  background: linear-gradient(90deg, #8b4513 0%, #a97142 20%, #b8860b 50%, #a97142 70%, #8b4513 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  margin: 10px 0;
+}
+
+.amount {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.coin {
+  padding: 12px 20px !important;
+  font-size: 14px !important;
+  font-family: 'Cinzel', sans-serif;
+  background: transparent !important;
+  -webkit-text-fill-color: initial !important;
+  color: #d4af37 !important;
+}
+
+.coin span {
+  margin: 0 4px;
+}
+
+.custom-donate {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 350px;
+  align-items: center;
+}
+
+.custom-donate input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #c4a882;
+  background: rgba(255, 255, 255, 0.1);
+  color: #e0d0c0;
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.custom-donate input:focus {
+  outline: none;
+  border-color: #b8860b;
+  box-shadow: 0 0 12px rgba(184, 134, 11, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.custom-donate input::placeholder {
+  color: #a08080;
+  font-style: italic;
+}
+
+.custom-donate .goldbtn {
+  padding: 10px 20px;
+  white-space: nowrap;
+}
+
+/* --- CONTACT SECTION --- */
+.contact {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  border-radius: 16px;
+  border: 1px solid #b8860b;
+  box-shadow: 0px 0px 15px 3px rgba(184, 134, 11, 0.2);
+  backdrop-filter: blur(20px);
+  /* Dark overlay on top of background image */
+  background: linear-gradient(rgba(10, 7, 4, 0.4), rgba(10, 7, 4, 0.4)), url("contact.png");
+  background-position: center;
+  background-size: 500%;
+  background-repeat: no-repeat;
+}
+
+@media (min-width: 768px) {
+  .contact {
+    width: 48%;
+  }
+}
+
+.contact form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.contact form div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contact form label {
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #d4af37;
+}
+
+.contact form input,
+.contact form textarea {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #c4a882;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e0d0c0;
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.contact form input:focus,
+.contact form textarea:focus {
+  outline: none;
+  border-color: #b8860b;
+  box-shadow: 0 0 12px rgba(184, 134, 11, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.contact form input::placeholder,
+.contact form textarea::placeholder {
+  color: #a08080;
+  font-style: italic;
+}
+
+.contact form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.contact form .goldbtn {
+  align-self: center;
+  padding: 10px 28px;
+}
+
+.mail {
+  margin-top: 16px;
+  text-align: center;
+  width: 100%;
+}
+
+.mail a {
+  display: inline-block;
+  padding: 10px 24px;
+  border: 1px solid #b8860b;
+  border-radius: 50px;
+  color: #d4af37;
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.mail a:hover {
+  background: rgba(184, 134, 11, 0.15);
+  box-shadow: 0 0 20px rgba(184, 134, 11, 0.2);
+}
+
+.mail a i {
+  margin-right: 8px;
+}
+
+/* ============================================
+   PLEA / CALL TO ACTION
+============================================ */
+.plea {
+  background: rgba(10, 45, 20, 0.4);
+  border: 1px solid #b8860b;
+  border-radius: 16px;
+  box-shadow: 0px 0px 15px 3px rgba(184, 134, 11, 0.15);
+  padding: 40px 30px;
+  margin: 50px 20px;
+  width: calc(100% - 40px);
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+
+@media (min-width: 768px) {
+  .plea {
+    padding: 60px 50px;
+    margin: 60px auto;
+    max-width: 900px;
+  }
+}
+
+.plea h2 {
+  font-weight: bold;
+  font-size: 28px;
+  font-family: 'Cinzel', sans-serif;
+  text-align: center;
+  background: linear-gradient(90deg, #8b4513 0%, #a97142 20%, #b8860b 50%, #a97142 70%, #8b4513 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 15px;
+}
+
+.plea p {
+  color: #c0c0c0;
+  font-weight: 400;
+  line-height: 1.8;
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  margin: 15px 0;
+}
+
+.plea-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin: 25px 0 15px;
+}
+
+.plea .assurance {
+  font-size: 14px;
+  font-style: italic;
+  color: #a08080;
+  margin: 10px 0;
+}
+
+.plea-email {
+  display: inline-block;
+  color: #d4af37;
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  text-decoration: none;
+  border-bottom: 1px dashed #b8860b;
+  padding-bottom: 2px;
+  transition: all 0.3s ease;
+}
+
+.plea-email:hover {
+  color: #ffd700;
+  border-bottom-color: #ffd700;
+}
+
+/* ============================================
+   FOOTER
+============================================ */
+footer {
+  margin-top: 60px;
+  padding: 30px 20px 20px;
+  border-top: 1px solid rgba(184, 134, 11, 0.3);
+  text-align: center;
+}
+
+.footer-content {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-logo p {
+  font-weight: bold;
+  font-size: 14px;
+  font-family: 'Cinzel', sans-serif;
+  background: linear-gradient(90deg, #8b4513 0%, #a97142 20%, #b8860b 50%, #a97142 70%, #8b4513 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.footer-logo p span {
+  font-size: 22px;
+}
+
+.footer-tagline {
+  font-style: italic;
+  color: #a08080;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 18px;
+}
+
+.footer-social a {
+  color: #a08080;
+  font-size: 20px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer-social a:hover {
+  color: #d4af37;
+  transform: translateY(-2px);
+}
+
+.footer-copy p {
+  color: #8b7355;
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 2px 0;
+}
+
+/* ============================================
+   MODAL (Trailer)
+============================================ */
 .modal {
   display: none;
   position: fixed;
@@ -579,11 +976,13 @@ h1 span {
   }
 }
 
-/* Responsive adjustments */
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+============================================ */
 @media (max-width: 480px) {
   body {
     margin: 10px;
-    padding: 4px;
+    padding: 0px;
   }
   
   h1 {
@@ -617,5 +1016,25 @@ h1 span {
   
   .director-about div img {
     max-width: 220px;
+  }
+  
+  .plea {
+    padding: 30px 20px;
+    margin: 30px 10px;
+    width: calc(100% - 20px);
+  }
+  
+  .plea h2 {
+    font-size: 22px;
+  }
+  
+  .custom-donate {
+    flex-direction: column;
+    max-width: 100%;
+  }
+  
+  .custom-donate .goldbtn {
+    width: 100%;
+    justify-content: center;
   }
 }
