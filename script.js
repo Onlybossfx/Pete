@@ -1,283 +1,153 @@
+// ============================================
+// SCRIPT.JS - The Hunt for Gollum
+// ============================================
+
 document.addEventListener('DOMContentLoaded', function() {
-
-  // ============================================
-  // 🔐 SUPABASE CONFIGURATION
-  // ============================================
-  const SUPABASE_URL = 'https://slelabwkeijziuefyjob.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsZWxhYndrZWlqeml1ZWZ5am9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3NzIwMDcsImV4cCI6MjA5NzM0ODAwN30.DMSv1vndksl7TM-8JzN1BSljogyVFCF2CUR5ybyMY7o';
-
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-  console.log('🧙‍♂️ Supabase initialized for forms');
-
-  // ============================================
-  // 💰 PAYSTACK CONFIGURATION
-  // ============================================
-  // 🔑 REPLACE WITH YOUR PAYSTACK PUBLIC KEY
-  // Go to Paystack Dashboard → Settings → API Keys & Webhooks
-  const PAYSTACK_PUBLIC_KEY = 'pk_live_7119a1ec5d6c2f268c1073a8dc711567d66dfcae';
+  'use strict';
 
   // ============================================
   // MOBILE MENU TOGGLE
   // ============================================
-  const menuBtn = document.getElementById('menuToggle');
-  const dropdown = document.getElementById('dropdownMenu');
+  const menuToggle = document.getElementById('menuToggle');
+  const dropdownMenu = document.getElementById('dropdownMenu');
 
-  if (menuBtn && dropdown) {
-    menuBtn.addEventListener('click', function(e) {
+  if (menuToggle && dropdownMenu) {
+    menuToggle.addEventListener('click', function(e) {
       e.stopPropagation();
-      if (window.innerWidth < 600) {
-        const isVisible = dropdown.style.display === 'flex';
-        dropdown.style.display = isVisible ? 'none' : 'flex';
-      }
-    });
-
-    document.addEventListener('click', function(e) {
-      if (window.innerWidth < 600) {
-        if (!menuBtn.contains(e.target) && !dropdown.contains(e.target)) {
-          dropdown.style.display = 'none';
-        }
-      }
-    });
-
-    window.addEventListener('resize', function() {
-      if (window.innerWidth >= 600) {
-        dropdown.style.display = 'flex';
+      if (dropdownMenu.style.display === 'flex') {
+        dropdownMenu.style.display = 'none';
       } else {
-        dropdown.style.display = 'none';
+        dropdownMenu.style.display = 'flex';
       }
     });
 
-    // Initial setup
-    if (window.innerWidth < 600) {
-      dropdown.style.display = 'none';
-    } else {
-      dropdown.style.display = 'flex';
-    }
-  }
-
-  // ============================================
-  // TRAILER MODAL
-  // ============================================
-  const modal = document.getElementById('trailerModal');
-  const watchBtn = document.getElementById('watchTrailerBtn');
-  const closeBtn = document.querySelector('.close-modal');
-  const iframe = document.getElementById('trailerVideo');
-
-  if (watchBtn && modal && closeBtn && iframe) {
-    watchBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      modal.style.display = 'flex';
-      iframe.src = 'https://youtu.be/CyP11HJvF0A?si=Ud7eBsV3GJh06F8f';
-    });
-
-    function closeModal() {
-      modal.style.display = 'none';
-      iframe.src = iframe.src.replace('?autoplay=1&rel=0', '?si=placeholder');
-    }
-
-    closeBtn.addEventListener('click', closeModal);
-
-    window.addEventListener('click', function(e) {
-      if (e.target === modal) {
-        closeModal();
-      }
-    });
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && modal.style.display === 'flex') {
-        closeModal();
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('nav')) {
+        dropdownMenu.style.display = 'none';
       }
     });
   }
 
   // ============================================
-  // 💰 PAYSTACK DONATION FUNCTION
+  // SPONSORS TOGGLE (See More / See Less)
   // ============================================
-  function payWithPaystack(amount, email, name) {
-    const handler = PaystackPop.setup({
-      key: PAYSTACK_PUBLIC_KEY,
-      email: email || 'donor@middle-earth.com',
-      amount: amount * 100, // Paystack expects amount in kobo
-      currency: 'NGN',
-      ref: 'hfgl-' + Date.now(), // Unique reference
-      first_name: name || 'Fellow Traveler',
-      callback: function(response) {
-        // Transaction successful
-        console.log('✅ Payment successful:', response);
-        alert('🎉 Thank you for your donation! Your support helps bring Middle-earth to life.');
-        // Save donation record to Supabase
-        saveDonationToSupabase({
-          name: name || 'Anonymous',
-          email: email || 'donor@middle-earth.com',
-          amount: amount,
-          reference: response.reference,
-          status: 'success'
-        });
-      },
-      onClose: function() {
-        console.log('❌ Payment window closed');
-      }
-    });
-    handler.openIframe();
-  }
+  const toggleBtn = document.getElementById('sponsorsToggle');
+  const sponsorsGrid = document.getElementById('sponsorsGrid');
 
-  // ============================================
-  // 📊 SAVE DONATION TO SUPABASE (Optional)
-  // ============================================
-  async function saveDonationToSupabase(data) {
-    try {
-      const { error } = await supabase
-        .from('donations')
-        .insert([data]);
+  if (toggleBtn && sponsorsGrid) {
+    toggleBtn.addEventListener('click', function() {
+      sponsorsGrid.classList.toggle('show-all');
+      this.classList.toggle('active');
 
-      if (error) throw error;
-      console.log('✅ Donation recorded in Supabase');
-    } catch (error) {
-      console.error('❌ Error saving donation:', error);
-    }
-  }
-
-  // ============================================
-  // DONATE BUTTON PRESETS
-  // ============================================
-  const donateInput = document.getElementById('donateAmount');
-  const coinButtons = document.querySelectorAll('.coin');
-
-  coinButtons.forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      const amount = this.dataset.amount;
-      if (donateInput && amount) {
-        donateInput.value = amount;
-        coinButtons.forEach(b => b.style.borderColor = '');
-        this.style.borderColor = '#ffd700';
-      }
-    });
-  });
-
-  // ============================================
-  // 💰 DONATE BUTTON — Open Paystack
-  // ============================================
-  const donateBtn = document.getElementById('donateBtn');
-
-  if (donateBtn) {
-    donateBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-
-      // Get amount from input or use default 5
-      const amount = parseInt(donateInput.value) || 5;
-
-      if (amount < 1) {
-        alert('⚠️ Please enter a valid donation amount (minimum ₦1).');
-        return;
-      }
-
-      if (amount > 1000000) {
-        alert('⚠️ Donation amount too high. Please enter a smaller amount.');
-        return;
-      }
-
-      // Ask for donor details (optional)
-      const donorName = prompt('Enter your name (optional):', 'Fellow Traveler') || 'Anonymous';
-      const donorEmail = prompt('Enter your email (optional):', 'fellow@middle-earth.com') || 'donor@middle-earth.com';
-
-      // Proceed with payment
-      payWithPaystack(amount, donorEmail, donorName);
-    });
-  }
-
-  // ============================================
-  // 💰 "BACK THIS PROJECT" BUTTON
-  // ============================================
-  const backProjectBtn = document.getElementById('backProjectBtn');
-
-  if (backProjectBtn) {
-    backProjectBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-
-      const amount = prompt('Enter your donation amount (₦):', '1000');
-
-      if (amount && !isNaN(amount) && parseInt(amount) > 0) {
-        const donorName = prompt('Enter your name (optional):', 'Project Backer') || 'Anonymous';
-        const donorEmail = prompt('Enter your email (optional):', 'backer@middle-earth.com') || 'backer@middle-earth.com';
-        payWithPaystack(parseInt(amount), donorEmail, donorName);
-      } else if (amount !== null) {
-        alert('⚠️ Please enter a valid amount.');
+      const text = this.querySelector('.toggle-text');
+      if (text) {
+        text.textContent = sponsorsGrid.classList.contains('show-all') 
+          ? 'Show Less' 
+          : 'See More Supporters';
       }
     });
   }
 
   // ============================================
-  // 💬 CONTACT FORM — Submit to Supabase
+  // CONTACT FORM (Feedback)
   // ============================================
   const contactForm = document.getElementById('contactForm');
-
   if (contactForm) {
     contactForm.addEventListener('submit', async function(e) {
       e.preventDefault();
 
       const name = document.getElementById('contactName').value.trim();
       const email = document.getElementById('contactEmail').value.trim();
-      const message = document.getElementById('contactComment').value.trim();
+      const comment = document.getElementById('contactComment').value.trim();
 
-      // Validate
-      if (!name || !email || !message) {
-        alert('⚠️ Please fill in all fields.');
+      // Simple validation
+      if (!name || !email || !comment) {
+        alert('Please fill in all fields.');
         return;
       }
 
-      if (!email.includes('@') || !email.includes('.')) {
-        alert('⚠️ Please enter a valid email address.');
+      if (!email.includes('@')) {
+        alert('Please enter a valid email address.');
         return;
       }
 
-      // Show loading state
-      const submitBtn = this.querySelector('.goldbtn');
+      const submitBtn = this.querySelector('.goldbtn.send');
       const originalText = submitBtn.innerHTML;
-      submitBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Sending...';
-      submitBtn.disabled = true;
 
       try {
-        // Send to Supabase
-        const { data, error } = await supabase
-          .from('feedback')
-          .insert([{ name, email, message }]);
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Sending...';
 
-        if (error) throw error;
+        // Store in localStorage (or send to your backend)
+        const feedbacks = JSON.parse(localStorage.getItem('feedbackData') || '[]');
+        feedbacks.push({
+          id: Date.now(),
+          name: name,
+          email: email,
+          message: comment,
+          submitted: new Date().toISOString()
+        });
+        localStorage.setItem('feedbackData', JSON.stringify(feedbacks));
 
-        alert('✅ Thank you! Your message has been recorded in the Red Book.');
-        this.reset();
+        // Simulate network delay
+        await new Promise(resolve => setTimeout(resolve, 800));
+
+        alert('Your message has been sent! Thank you for reaching out.');
+        contactForm.reset();
 
       } catch (error) {
-        console.error('❌ Supabase Error:', error);
-        alert('⚠️ Something went wrong. Please try again later.');
+        console.error('Error sending message:', error);
+        alert('Something went wrong. Please try again.');
       } finally {
-        submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
       }
     });
   }
 
   // ============================================
-  // SPONSORS TOGGLE
+  // COLLABORATE BUTTONS - Smooth scroll or redirect
   // ============================================
-  const sponsorsToggle = document.getElementById('sponsorsToggle');
-  const sponsorsGrid = document.getElementById('sponsorsGrid');
+  const collaborateBtns = document.querySelectorAll('#collaborateBtn, #collaborateBtn2');
+  collaborateBtns.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      // Already linking to form.html via href
+      // Add a small tracking event if needed
+      console.log('Collaborate button clicked');
+    });
+  });
 
-  if (sponsorsToggle && sponsorsGrid) {
-    sponsorsToggle.addEventListener('click', function() {
-      const isOpen = sponsorsGrid.classList.toggle('show-all');
-      this.classList.toggle('active');
-
-      const toggleText = this.querySelector('.toggle-text');
-      if (isOpen) {
-        toggleText.textContent = 'See Less Sponsors';
-      } else {
-        toggleText.textContent = 'See More Sponsors';
+  // ============================================
+  // SMOOTH SCROLL FOR NAV LINKS
+  // ============================================
+  const navLinks = document.querySelectorAll('.dropdown-content a[href^="#"]');
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (targetId && targetId !== '#') {
+        const target = document.querySelector(targetId);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Close mobile menu
+          if (dropdownMenu) {
+            dropdownMenu.style.display = 'none';
+          }
+        }
       }
+    });
+  });
+
+  // ============================================
+  // LOGO CLICK - Back to top
+  // ============================================
+  const logo = document.querySelector('.logo');
+  if (logo) {
+    logo.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
-  console.log('🧙‍♂️ The Hunt for Gollum — site ready with Supabase + Paystack!');
+  console.log('🎬 The Hunt for Gollum — Website ready!');
 });

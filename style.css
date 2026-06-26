@@ -1328,3 +1328,52 @@ footer {
     padding: 10px 24px;
   }
 }
+
+/* ============================================
+   ADDITIONS FOR CLEANED HOME PAGE
+============================================ */
+
+/* Full width contact section (no donation split) */
+.contact.full-width {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  background: rgba(10, 45, 20, 0.4);
+  border: 1px solid #b8860b;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(184, 134, 11, 0.1);
+  padding: 40px 35px;
+}
+
+@media (max-width: 768px) {
+  .contact.full-width {
+    padding: 25px 20px;
+  }
+}
+
+/* Remove action flex layout since we only have one column now */
+.action {
+  display: flex;
+  justify-content: center;
+  padding: 20px 10px;
+  margin: 40px 0;
+}
+
+@media (min-width: 768px) {
+  .action {
+    padding: 20px 30px;
+  }
+}
+
+/* Donate page link style in FAQ */
+.faq-answer a {
+  color: #d4af37;
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(184, 134, 11, 0.3);
+  transition: all 0.3s ease;
+}
+
+.faq-answer a:hover {
+  color: #ffd700;
+  border-bottom-color: #ffd700;
+}

@@ -5,12 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>The Lord of the Rings: The Hunt for Gollum</title>
   
-  <!-- Supabase JS Client -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  
-  <!-- Paystack Inline Script -->
-  <script src="https://js.paystack.co/v1/inline.js"></script>
-  
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,8 +27,8 @@
       <ul class="dropdown-content" id="dropdownMenu">
         <li><a href="#about">About</a></li>
         <li><a href="#cast">Cast</a></li>
-        <li><a href="form.html">Collaborare</a></li>
-        <li><a href="#donate">Donate</a></li>
+        <li><a href="form.html">Collaborate</a></li>
+        <li><a href="donate.html">Support</a></li>
         <li><a href="#news">News</a></li>
       </ul>
     </nav>
@@ -47,7 +41,7 @@
         <div class="hero-content">
           <p>LORD OF THE RINGS:</p>
           <h1>THE HUNT FOR <br><span>GOLLUM</span></h1>
-          <button class="goldbtn"><a href="https://youtu.be/CyP11HJvF0A?si=Ud7eBsV3GJh06F8f" id="watchTrailerBtn">WATCH TEASER TRAILER <i class="fas fa-play"></i></a></button>
+          <button class="goldbtn"><a href="form.html" id="collaborateBtn">✦ COLLABORATE ✦ <i class="fas fa-users"></i></a></button>
         </div>
         <div class="hero-image desktop-only">
           <img src="gollum.jpeg" alt="Gollum" onerror="this.src='https://placehold.co/280x280/1a1a1a/b8860b?text=Gollum'">
@@ -56,7 +50,7 @@
     </section>
     
     <!-- ABOUT SECTION -->
-    <section class="about">
+    <section class="about" id="about">
       <div class="movie-about abt">
         <h2>The Movie</h2>
         <p class="description">The story is expected to focus on the period when Gollum is being hunted by Aragorn and Gandalf before the events of The Lord of the Rings: The Fellowship of the Ring. This hunt is mentioned in Tolkien's lore but was never shown in the original film trilogy.</p>
@@ -132,24 +126,9 @@
       </div>
     </section>
     
-    <!-- ACTION / DONATE + CONTACT -->
+    <!-- CONTACT SECTION (standalone, no donations) -->
     <section class="action">
-      <div class="donate" id="donate">
-        <h3>Support The Mission</h3>
-        <div class="donate-inner">
-          <div class="amount">
-            <button class="goldbtn coin" data-amount="5">5 Caster <span>$5</span> <i class="fas fa-coins"></i></button>
-            <button class="goldbtn coin" data-amount="10">10 Caster <span>$10</span> <i class="fas fa-coins"></i></button>
-            <button class="goldbtn coin" data-amount="20">20 Caster <span>$20</span> <i class="fas fa-coins"></i></button>
-          </div>
-          <div class="custom-donate">
-            <input type="number" id="donateAmount" name="donateAmount" placeholder="Custom amount" min="1">
-            <button class="goldbtn send" id="donateBtn">Donate <i class="fas fa-paper-plane"></i></button>
-          </div>
-        </div>
-      </div>
-      
-      <div class="contact">
+      <div class="contact full-width">
         <h3>Got any words for the elders or need support?</h3>
         <form action="#" id="contactForm">
           <div>
@@ -179,13 +158,6 @@
 
       <div class="faq-list">
         <details class="faq-item">
-          <summary class="faq-question">What is the budget?  </summary>
-          <div class="faq-answer">
-            <p>The movie is currently looking at a film budget of $90 million to facilitate the smooth production of the movie.</p>
-          </div>
-        </details>
-
-        <details class="faq-item">
           <summary class="faq-question">When will the film be released?</summary>
           <div class="faq-answer">
             <p>We are currently in pre-production. The release date depends on funding and production timelines. We'll announce updates on our social channels.</p>
@@ -195,7 +167,7 @@
         <details class="faq-item">
           <summary class="faq-question">How can I support the project?</summary>
           <div class="faq-answer">
-            <p>Its simple. Simply insert the amount anticipated, tap in the Donate button and continue to payment in  paystack.</p>
+            <p>Visit our <a href="donate.html" style="color:#d4af37;">Support Page</a> to contribute to the production. Every contribution helps bring Middle-earth to life.</p>
           </div>
         </details>
 
@@ -207,28 +179,32 @@
         </details>
 
         <details class="faq-item">
+          <summary class="faq-question">How can I join the production team?</summary>
+          <div class="faq-answer">
+            <p>Click the "Collaborate" button on our homepage or visit our <a href="form.html" style="color:#d4af37;">Collaboration Form</a> to apply and become part of the journey.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
           <summary class="faq-question">Where can I watch the teaser trailer?</summary>
           <div class="faq-answer">
-            <p>You can watch the teaser trailer by clicking the "Watch Teaser Trailer" button in the hero section at the top of this page.</p>
+            <p>A teaser trailer has not yet been released. Stay tuned to our social channels for updates and announcements.</p>
           </div>
         </details>
       </div>
     </section>
     
-    
     <!-- SPONSORS SECTION -->
     <section class="sponsors-section">
-      <h2 class="sponsors-title">Our Sponsors & Supporters</h2>
+      <h2 class="sponsors-title">Our Supporters</h2>
       <p class="sponsors-subtitle">A heartfelt thank you to those who have answered the call</p>
 
       <div class="sponsors-grid" id="sponsorsGrid">
-        <!-- Visible sponsors (always shown) -->
         <div class="sponsor-item">James Michael Anderson</div>
         <div class="sponsor-item">William Robert Johnson</div>
         <div class="sponsor-item">John David Miller</div>
         <div class="sponsor-item">Michael Christopher Davis</div>
 
-        <!-- Hidden sponsors (shown after clicking "See More") -->
         <div class="sponsor-item hidden-sponsor">Robert Thomas Wilson</div>
         <div class="sponsor-item hidden-sponsor">David Joseph Moore</div>
         <div class="sponsor-item hidden-sponsor">Joseph Daniel Brown</div>
@@ -237,32 +213,32 @@
         <div class="sponsor-item hidden-sponsor">Thomas Patrick Harris</div>
         <div class="sponsor-item hidden-sponsor">Christopher Ryan Martin</div>
         <div class="sponsor-item hidden-sponsor">Matthew Scott Thompson</div>
-         <div class="sponsor-item hidden-sponsor">Daniel Andrew Garcia</div>
+        <div class="sponsor-item hidden-sponsor">Daniel Andrew Garcia</div>
         <div class="sponsor-item hidden-sponsor">Anthony James Martinez</div>
         <div class="sponsor-item hidden-sponsor">Mark Steven Robinson</div>
         <div class="sponsor-item hidden-sponsor">Donald Eugene Clark</div>
         <div class="sponsor-item hidden-sponsor">Paul Gregory Lewis</div>
         <div class="sponsor-item hidden-sponsor">Steven Brian Walker</div>
         <div class="sponsor-item hidden-sponsor">Andrew Kevin Hall</div>
-        <div class="sponsor-item hidden-sponsor">amd many more............</div>
+        <div class="sponsor-item hidden-sponsor">and many more...</div>
       </div>
 
       <button class="sponsors-toggle" id="sponsorsToggle">
-        <span class="toggle-text">See More Sponsors</span>
+        <span class="toggle-text">See More Supporters</span>
         <i class="fas fa-chevron-down toggle-icon"></i>
       </button>
     </section>
     
-    <!-- PLEA / CALL TO ACTION -->
+    <!-- PLEA / CALL TO ACTION (cleaned of donation language) -->
     <section class="plea">
       <div class="container">
-        <h2>Help Bring This Story to Life</h2>
-        <p>Every contribution, no matter the size, helps us create a film worthy of Middle-earth and the fans who love it.</p>
+        <h2>Join the Journey</h2>
+        <p>Be part of this epic tale. Whether you want to collaborate, share the news, or simply follow our progress — every voice matters in bringing this story to life.</p>
         <div class="plea-buttons">
-          <button class="goldbtn" id="backProjectBtn"><a href="#"><i class="fas fa-heart"></i> Back this Project</a></button>
-          <button class="goldbtn"><a href="#"><i class="fas fa-link"></i> Share with Friends</a></button>
+          <button class="goldbtn" id="collaborateBtn2"><a href="form.html"><i class="fas fa-handshake"></i> Join the Team</a></button>
+          <button class="goldbtn"><a href="#"><i class="fas fa-share-alt"></i> Share with Friends</a></button>
         </div>
-        <p class="assurance">All funds raised will go directly to production costs</p>
+        <p class="assurance">Together, we can bring Middle-earth back to the screen</p>
         <a href="mailto:petemanagement@gmail.com" target="_blank" class="plea-email">Questions? Contact us at production@huntforgollum.film</a>
       </div>
     </section>
@@ -287,16 +263,6 @@
       </div>
     </div>
   </footer>
-
-  <!-- Trailer Modal -->
-  <div id="trailerModal" class="modal">
-    <div class="modal-content">
-      <span class="close-modal">&times;</span>
-      <div class="video-container">
-        <iframe id="trailerVideo" width="100%" height="100%" src="https://www.youtube.com/embed/YYSceespQHs?si=placeholder" title="The Hunt for Gollum Teaser Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-    </div>
-  </div>
 
   <!-- External JavaScript -->
   <script src="script.js"></script>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Support — The Hunt for Gollum</title>
+  
+  <!-- Paystack Inline Script -->
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+    /* Donate Page Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(rgba(25, 45, 20, 0.4), rgba(25, 45, 20, 0.4)), url("bg.png");
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
+      font-family: 'Playfair Display', serif;
+      color: #c0c0c0;
+      padding: 20px;
+    }
+
+    .donate-wrapper {
+      max-width: 600px;
+      margin: 40px auto;
+      background: rgba(10, 45, 20, 0.5);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      border: 1px solid #b8860b;
+      box-shadow: 0 0 60px rgba(184, 134, 11, 0.15);
+      padding: 50px 40px;
+    }
+
+    .donate-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .donate-header .icon {
+      font-size: 48px;
+      color: #b8860b;
+      margin-bottom: 10px;
+    }
+
+    .donate-header h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 28px;
+      background: linear-gradient(90deg, #8b4513, #b8860b, #d4af37, #b8860b, #8b4513);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6px;
+    }
+
+    .donate-header p {
+      font-style: italic;
+      color: #c0a080;
+      font-size: 16px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #b8860b;
+      text-decoration: none;
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #d4af37;
+    }
+
+    .back-link i {
+      margin-right: 8px;
+    }
+
+    .donate-form .form-group {
+      margin-bottom: 18px;
+    }
+
+    .donate-form label {
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #daa520;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .donate-form input,
+    .donate-form textarea {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid #c4a882;
+      border-radius: 8px;
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      color: #e0d0c0;
+      transition: all 0.3s ease;
+    }
+
+    .donate-form input:focus,
+    .donate-form textarea:focus {
+      outline: none;
+      border-color: #b8860b;
+      box-shadow: 0 0 12px rgba(184, 134, 11, 0.15);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .donate-form input::placeholder,
+    .donate-form textarea::placeholder {
+      color: #5a46064f;
+      font-style: italic;
+    }
+
+    .amount-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 10px 0 15px;
+    }
+
+    .amount-btn {
+      flex: 1;
+      min-width: 80px;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid #c4a882;
+      border-radius: 8px;
+      color: #c0a080;
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .amount-btn:hover {
+      border-color: #b8860b;
+      color: #d4af37;
+      background: rgba(184, 134, 11, 0.1);
+    }
+
+    .amount-btn.selected {
+      border-color: #b8860b;
+      background: rgba(184, 134, 11, 0.15);
+      color: #d4af37;
+      box-shadow: 0 0 20px rgba(184, 134, 11, 0.1);
+    }
+
+    .custom-amount-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .custom-amount-row input {
+      flex: 1;
+    }
+
+    .donate-btn {
+      width: 100%;
+      padding: 16px;
+      font-family: 'Cinzel', serif;
+      font-size: 16px;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #8b4513, #b8860b);
+      border: none;
+      border-radius: 50px;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .donate-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(184, 134, 11, 0.35);
+    }
+
+    .donate-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .donate-footer {
+      text-align: center;
+      margin-top: 24px;
+      font-style: italic;
+      color: #8b7355;
+      font-size: 13px;
+    }
+
+    .donate-footer i {
+      color: #b8860b;
+    }
+
+    .form-status {
+      margin-top: 15px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      text-align: center;
+      display: none;
+    }
+
+    .form-status.success {
+      display: block;
+      background: rgba(40, 167, 69, 0.15);
+      border: 1px solid #28a745;
+      color: #5cb85c;
+    }
+
+    .form-status.error {
+      display: block;
+      background: rgba(220, 53, 69, 0.15);
+      border: 1px solid #dc3545;
+      color: #dc3545;
+    }
+
+    @media (max-width: 600px) {
+      .donate-wrapper {
+        padding: 30px 20px;
+        margin: 20px auto;
+      }
+
+      .donate-header h1 {
+        font-size: 22px;
+      }
+
+      .amount-btn {
+        min-width: 60px;
+        font-size: 12px;
+        padding: 10px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="donate-wrapper">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
+    <div class="donate-header">
+      <div class="icon"><i class="fas fa-scroll"></i></div>
+      <h1>Support the Journey</h1>
+      <p>Every contribution brings Middle-earth closer to the screen</p>
+    </div>
+
+    <form class="donate-form" id="donateForm">
+      <!-- Donor Name -->
+      <div class="form-group">
+        <label for="donorName"><i class="fas fa-user"></i> Your Name</label>
+        <input type="text" id="donorName" name="name" placeholder="Enter your full name" required>
+      </div>
+
+      <!-- Donor Email -->
+      <div class="form-group">
+        <label for="donorEmail"><i class="fas fa-envelope"></i> Your Email</label>
+        <input type="email" id="donorEmail" name="email" placeholder="Enter your email address" required>
+      </div>
+
+      <!-- Donation Amount -->
+      <div class="form-group">
+        <label><i class="fas fa-coins"></i> Choose Amount</label>
+        <div class="amount-grid">
+          <button type="button" class="amount-btn" data-amount="5">$5</button>
+          <button type="button" class="amount-btn" data-amount="10">$10</button>
+          <button type="button" class="amount-btn" data-amount="20">$20</button>
+          <button type="button" class="amount-btn" data-amount="50">$50</button>
+          <button type="button" class="amount-btn" data-amount="100">$100</button>
+        </div>
+        <div class="custom-amount-row">
+          <input type="number" id="customAmount" name="customAmount" placeholder="Custom amount ($)" min="1">
+        </div>
+      </div>
+
+      <!-- Message (optional) -->
+      <div class="form-group">
+        <label for="donorMessage"><i class="fas fa-comment"></i> Message (optional)</label>
+        <textarea id="donorMessage" name="message" rows="3" placeholder="Leave a message for the team..."></textarea>
+      </div>
+
+      <button type="submit" class="donate-btn" id="donateSubmitBtn">
+        <i class="fas fa-heart"></i> Contribute Now
+      </button>
+
+      <div class="form-status" id="formStatus"></div>
+    </form>
+
+    <div class="donate-footer">
+      <i class="fas fa-feather-alt"></i> All contributions go directly to production costs
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const form = document.getElementById('donateForm');
+      const nameInput = document.getElementById('donorName');
+      const emailInput = document.getElementById('donorEmail');
+      const customInput = document.getElementById('customAmount');
+      const statusDiv = document.getElementById('formStatus');
+      const submitBtn = document.getElementById('donateSubmitBtn');
+      let selectedAmount = null;
+
+      // Amount button selection
+      const amountBtns = document.querySelectorAll('.amount-btn');
+      amountBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          amountBtns.forEach(b => b.classList.remove('selected'));
+          this.classList.add('selected');
+          selectedAmount = parseInt(this.dataset.amount);
+          customInput.value = '';
+        });
+      });
+
+      // Custom amount input clears selection
+      customInput.addEventListener('input', function() {
+        if (this.value) {
+          amountBtns.forEach(b => b.classList.remove('selected'));
+          selectedAmount = null;
+        }
+      });
+
+      // Form submission
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // Get values
+        const name = nameInput.value.trim();
+        const email = emailInput.value.trim();
+        const customValue = parseInt(customInput.value);
+        let amount = selectedAmount || customValue;
+
+        // Validation
+        if (!name) {
+          showStatus('Please enter your name.', 'error');
+          return;
+        }
+        if (!email || !email.includes('@')) {
+          showStatus('Please enter a valid email address.', 'error');
+          return;
+        }
+        if (!amount || amount < 1) {
+          showStatus('Please select or enter a donation amount.', 'error');
+          return;
+        }
+
+        // Disable button
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Processing...';
+
+        try {
+          // Initialize Paystack
+          const handler = PaystackPop.setup({
+            key: 'pk_live_7119a1ec5d6c2f268c1073a8dc711567d66dfcae', // Replace with actual key
+            email: email,
+            amount: amount * 100, // Convert to kobo
+            currency: 'USD',
+            metadata: {
+              custom_fields: [
+                {
+                  display_name: "Donor Name",
+                  variable_name: "donor_name",
+                  value: name
+                }
+              ]
+            },
+            callback: function(response) {
+              // Payment successful
+              showStatus(`Thank you ${name}! Your contribution of $${amount} has been received.`, 'success');
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = '<i class="fas fa-heart"></i> Contribute Now';
+              form.reset();
+              amountBtns.forEach(b => b.classList.remove('selected'));
+              selectedAmount = null;
+
+              // You can send data to your backend here
+              console.log('Payment successful:', response);
+            },
+            onClose: function() {
+              // User closed modal
+              showStatus('Payment was cancelled. You can try again anytime.', 'error');
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = '<i class="fas fa-heart"></i> Contribute Now';
+            }
+          });
+
+          handler.openIframe();
+
+        } catch (error) {
+          console.error('Payment error:', error);
+          showStatus('Something went wrong. Please try again.', 'error');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fas fa-heart"></i> Contribute Now';
+        }
+      });
+
+      function showStatus(message, type) {
+        statusDiv.textContent = message;
+        statusDiv.className = 'form-status ' + type;
+        statusDiv.style.display = 'block';
+
+        if (type === 'success') {
+          setTimeout(() => {
+            statusDiv.style.display = 'none';
+          }, 6000);
+        }
+      }
+    })();
+  </script>
+
+</body>
+</html>
