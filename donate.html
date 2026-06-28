@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
   <style>
-    /* (same styles as before — kept for consistency) */
+    /* (all existing styles stay exactly the same — no changes needed) */
     * {
       margin: 0;
       padding: 0;
@@ -377,14 +377,22 @@
       // ============================================================
 
       // 1. Your single Paystack API key (test or live)
-      const PAYSTACK_KEY = 'pk_live_a292116859a7fc29c7ed46c9b9e112ec5308a7e6'; // ← Replace with your key
+      const PAYSTACK_KEY = 'pk_live_a292116859a7fc29c7ed46c9b9e112ec5308a7e6';
 
       // 2. Which currencies does your merchant account support?
-      //    (Only these will appear in the dropdown)
-      //    Common: 'NGN', 'GHS', 'KES', 'ZAR', 'USD', 'EUR', 'GBP'
-      const SUPPORTED_CURRENCIES = ['NGN', 'GHS', 'KES', 'ZAR']; // ← Edit this list
+      //    Expand this list to include ALL currencies you want to accept globally.
+      const SUPPORTED_CURRENCIES = [
+        // Africa
+        'NGN', 'GHS', 'KES', 'ZAR',
+        // Americas
+        'USD', 'CAD', 'MXN',
+        // Europe
+        'EUR', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'PLN', 'CZK', 'HUF',
+        // Oceania
+        'AUD', 'NZD'
+      ];
 
-      // 3. Preset amounts for each currency (optional, but nice)
+      // 3. Preset amounts for each currency
       const AMOUNT_PRESETS = {
         NGN: [1000, 2500, 5000, 10000, 25000],
         GHS: [50, 100, 200, 500, 1000],
@@ -392,7 +400,18 @@
         ZAR: [50, 100, 200, 500, 1000],
         USD: [5, 10, 20, 50, 100],
         EUR: [5, 10, 20, 50, 100],
-        GBP: [5, 10, 20, 50, 100]
+        GBP: [5, 10, 20, 50, 100],
+        CAD: [5, 10, 20, 50, 100],
+        AUD: [5, 10, 20, 50, 100],
+        NZD: [5, 10, 20, 50, 100],
+        CHF: [5, 10, 20, 50, 100],
+        SEK: [50, 100, 200, 500, 1000],
+        NOK: [50, 100, 200, 500, 1000],
+        DKK: [50, 100, 200, 500, 1000],
+        PLN: [20, 50, 100, 200, 500],
+        CZK: [100, 200, 500, 1000, 2000],
+        HUF: [1000, 2000, 5000, 10000, 20000],
+        MXN: [100, 200, 500, 1000, 2000]
       };
 
       // 4. Minimum amount per currency
@@ -403,7 +422,18 @@
         ZAR: 10,
         USD: 1,
         EUR: 1,
-        GBP: 1
+        GBP: 1,
+        CAD: 1,
+        AUD: 1,
+        NZD: 1,
+        CHF: 1,
+        SEK: 10,
+        NOK: 10,
+        DKK: 10,
+        PLN: 5,
+        CZK: 50,
+        HUF: 500,
+        MXN: 50
       };
 
       // Currency display info
@@ -414,7 +444,18 @@
         ZAR: { symbol: 'R', label: 'South African Rand' },
         USD: { symbol: '$', label: 'US Dollar' },
         EUR: { symbol: '€', label: 'Euro' },
-        GBP: { symbol: '£', label: 'British Pound' }
+        GBP: { symbol: '£', label: 'British Pound' },
+        CAD: { symbol: 'C$', label: 'Canadian Dollar' },
+        AUD: { symbol: 'A$', label: 'Australian Dollar' },
+        NZD: { symbol: 'NZ$', label: 'New Zealand Dollar' },
+        CHF: { symbol: 'Fr', label: 'Swiss Franc' },
+        SEK: { symbol: 'kr', label: 'Swedish Krona' },
+        NOK: { symbol: 'kr', label: 'Norwegian Krone' },
+        DKK: { symbol: 'kr', label: 'Danish Krone' },
+        PLN: { symbol: 'zł', label: 'Polish Złoty' },
+        CZK: { symbol: 'Kč', label: 'Czech Koruna' },
+        HUF: { symbol: 'Ft', label: 'Hungarian Forint' },
+        MXN: { symbol: 'Mex$', label: 'Mexican Peso' }
       };
 
       // ============================================================
@@ -437,27 +478,60 @@
       let currentCurrency = SUPPORTED_CURRENCIES[0] || 'NGN';
 
       // ============================================
-      // DETECT USER CURRENCY
+      // DETECT USER CURRENCY — GLOBAL COVERAGE
       // ============================================
       function detectUserCurrency() {
         try {
           const locale = navigator.language || navigator.languages?.[0] || 'en-US';
+          
+          // Comprehensive country → currency mapping
           const countryMap = {
+            // Africa
             'NG': 'NGN', 'GH': 'GHS', 'KE': 'KES', 'ZA': 'ZAR',
-            'US': 'USD', 'GB': 'GBP', 'FR': 'EUR', 'DE': 'EUR',
-            'ES': 'EUR', 'IT': 'EUR', 'CA': 'USD'
+            'UG': 'KES', 'TZ': 'KES', 'RW': 'KES',
+            // Americas
+            'US': 'USD', 'CA': 'CAD', 'MX': 'MXN',
+            // Europe
+            'GB': 'GBP', 'FR': 'EUR', 'DE': 'EUR', 'ES': 'EUR',
+            'IT': 'EUR', 'NL': 'EUR', 'BE': 'EUR', 'PT': 'EUR',
+            'CH': 'CHF', 'SE': 'SEK', 'NO': 'NOK', 'DK': 'DKK',
+            'PL': 'PLN', 'CZ': 'CZK', 'HU': 'HUF', 'AT': 'EUR',
+            'IE': 'EUR', 'FI': 'EUR', 'GR': 'EUR', 'LU': 'EUR',
+            'HR': 'EUR', 'BG': 'BGN', 'RO': 'RON', 'IS': 'ISK',
+            // Oceania
+            'AU': 'AUD', 'NZ': 'NZD',
+            // Asia
+            'SG': 'USD', 'JP': 'JPY', 'CN': 'CNY', 'IN': 'INR',
+            'KR': 'KRW', 'ID': 'IDR', 'MY': 'MYR', 'PH': 'PHP',
+            'TH': 'THB', 'VN': 'VND', 'PK': 'PKR', 'BD': 'BDT'
           };
+
           const parts = locale.split('-');
           const country = parts.length > 1 ? parts[1].toUpperCase() : null;
+          
           if (country && countryMap[country]) {
             const detected = countryMap[country];
-            // Only return if it's in the supported list
             if (SUPPORTED_CURRENCIES.includes(detected)) {
               return detected;
             }
           }
+
+          // Fallback: try Intl.NumberFormat
+          try {
+            const formatter = new Intl.NumberFormat(navigator.language, { style: 'currency', currency: 'USD' });
+            const parts = formatter.formatToParts(0);
+            const currencyPart = parts.find(p => p.type === 'currency');
+            if (currencyPart && currencyPart.value) {
+              const detected = currencyPart.value;
+              if (SUPPORTED_CURRENCIES.includes(detected)) {
+                return detected;
+              }
+            }
+          } catch (e) {}
+
         } catch (e) {}
-        // Fallback to first supported currency
+        
+        // Final fallback
         return SUPPORTED_CURRENCIES[0] || 'NGN';
       }
 
@@ -474,7 +548,6 @@
           opt.textContent = `${info.symbol} ${code} — ${info.label}`;
           currencySelect.appendChild(opt);
         });
-        // If no supported currencies, add a default
         if (currencySelect.options.length === 0) {
           const opt = document.createElement('option');
           opt.value = 'NGN';
@@ -492,7 +565,6 @@
         currencySymbol.textContent = info.symbol;
         customInput.placeholder = `Custom amount (${info.symbol})`;
 
-        // Update amount presets
         const presets = AMOUNT_PRESETS[currencyCode] || [100, 200, 500, 1000];
         amountGrid.innerHTML = '';
         presets.forEach(amount => {
@@ -510,7 +582,6 @@
           amountGrid.appendChild(btn);
         });
 
-        // Clear selection
         document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
         selectedAmount = null;
         customInput.value = '';
@@ -524,7 +595,6 @@
       function handleCurrencyChange(currencyCode) {
         currentCurrency = currencyCode;
         updateUI(currencyCode);
-        // Show detection message
         const info = CURRENCY_INFO[currencyCode];
         detectedCurrencyDiv.innerHTML = `🌍 Using: <strong>${info.symbol} ${currencyCode}</strong> — ${info.label}`;
       }
@@ -534,7 +604,6 @@
       // ============================================
       function setDefaultCurrency() {
         const detected = detectUserCurrency();
-        // Ensure it's in the select options
         const options = Array.from(currencySelect.options).map(o => o.value);
         let defaultCurrency = options.includes(detected) ? detected : options[0] || 'NGN';
         currencySelect.value = defaultCurrency;
@@ -591,7 +660,7 @@
           const handler = PaystackPop.setup({
             key: PAYSTACK_KEY,
             email: email,
-            amount: amount * 100, // in kobo/cents
+            amount: amount * 100,
             currency: currency,
             metadata: {
               custom_fields: [
@@ -606,7 +675,7 @@
               form.reset();
               document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
               selectedAmount = null;
-              setDefaultCurrency(); // reset to detected currency
+              setDefaultCurrency();
               console.log('Payment successful:', response);
             },
             onClose: function() {
@@ -641,12 +710,11 @@
       populateCurrencyDropdown();
       setDefaultCurrency();
 
-      // Listen to manual currency changes
       currencySelect.addEventListener('change', function() {
         handleCurrencyChange(this.value);
       });
 
-      console.log('🎬 Donate page ready. Supported currencies:', SUPPORTED_CURRENCIES);
+      console.log('🌍 Donate page ready. Supported currencies:', SUPPORTED_CURRENCIES);
     })();
   </script>
 

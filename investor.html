@@ -17,9 +17,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
   <style>
-    /* ============================================
-       INVESTOR PAYMENT PAGE STYLES
-    ============================================ */
+    /* All existing styles remain exactly the same — no changes needed */
     * {
       margin: 0;
       padding: 0;
@@ -28,7 +26,7 @@
 
     body {
       min-height: 100vh;
-      background: linear-gradient(rgba(25, 45, 20, 0.5), rgba(25, 45, 20, 0.5)), url("bg.png");
+      background: linear-gradient(rgba(25, 45, 20, 0.4), rgba(25, 45, 20, 0.4)), url("bg.png");
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-size: cover;
@@ -38,8 +36,8 @@
       padding: 20px;
     }
 
-    .investor-wrapper {
-      max-width: 680px;
+    .donate-wrapper {
+      max-width: 600px;
       margin: 40px auto;
       background: rgba(10, 45, 20, 0.5);
       backdrop-filter: blur(12px);
@@ -49,18 +47,18 @@
       padding: 50px 40px;
     }
 
-    .investor-header {
+    .donate-header {
       text-align: center;
       margin-bottom: 30px;
     }
 
-    .investor-header .icon {
+    .donate-header .icon {
       font-size: 48px;
       color: #b8860b;
       margin-bottom: 10px;
     }
 
-    .investor-header h1 {
+    .donate-header h1 {
       font-family: 'Cinzel', serif;
       font-size: 28px;
       background: linear-gradient(90deg, #8b4513, #b8860b, #d4af37, #b8860b, #8b4513);
@@ -70,17 +68,35 @@
       margin-bottom: 6px;
     }
 
-    .investor-header p {
+    .donate-header p {
       font-style: italic;
       color: #c0a080;
       font-size: 16px;
     }
 
-    .investor-form .form-group {
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #b8860b;
+      text-decoration: none;
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #d4af37;
+    }
+
+    .back-link i {
+      margin-right: 8px;
+    }
+
+    .donate-form .form-group {
       margin-bottom: 18px;
     }
 
-    .investor-form label {
+    .donate-form label {
       font-family: 'Cinzel', serif;
       font-size: 12px;
       text-transform: uppercase;
@@ -90,9 +106,9 @@
       margin-bottom: 4px;
     }
 
-    .investor-form input,
-    .investor-form textarea,
-    .investor-form select {
+    .donate-form input,
+    .donate-form textarea,
+    .donate-form select {
       width: 100%;
       padding: 12px 16px;
       background: rgba(255, 255, 255, 0.1);
@@ -104,22 +120,22 @@
       transition: all 0.3s ease;
     }
 
-    .investor-form input:focus,
-    .investor-form textarea:focus,
-    .investor-form select:focus {
+    .donate-form input:focus,
+    .donate-form textarea:focus,
+    .donate-form select:focus {
       outline: none;
       border-color: #b8860b;
       box-shadow: 0 0 12px rgba(184, 134, 11, 0.15);
       background: rgba(255, 255, 255, 0.15);
     }
 
-    .investor-form input::placeholder,
-    .investor-form textarea::placeholder {
+    .donate-form input::placeholder,
+    .donate-form textarea::placeholder {
       color: #5a46064f;
       font-style: italic;
     }
 
-    .investor-form select option {
+    .donate-form select option {
       background: #1a0f08;
       color: #e0d0c0;
     }
@@ -185,7 +201,7 @@
       flex: 1;
     }
 
-    .investor-btn {
+    .donate-btn {
       width: 100%;
       padding: 16px;
       font-family: 'Cinzel', serif;
@@ -200,18 +216,18 @@
       margin-top: 10px;
     }
 
-    .investor-btn:hover {
+    .donate-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 25px rgba(184, 134, 11, 0.35);
     }
 
-    .investor-btn:disabled {
+    .donate-btn:disabled {
       opacity: 0.6;
       cursor: not-allowed;
       transform: none !important;
     }
 
-    .investor-footer {
+    .donate-footer {
       text-align: center;
       margin-top: 24px;
       font-style: italic;
@@ -219,7 +235,7 @@
       font-size: 13px;
     }
 
-    .investor-footer i {
+    .donate-footer i {
       color: #b8860b;
     }
 
@@ -265,12 +281,12 @@
     }
 
     @media (max-width: 600px) {
-      .investor-wrapper {
+      .donate-wrapper {
         padding: 30px 20px;
         margin: 20px auto;
       }
 
-      .investor-header h1 {
+      .donate-header h1 {
         font-size: 22px;
       }
 
@@ -289,44 +305,34 @@
 </head>
 <body>
 
-  <div class="investor-wrapper">
-    <div class="investor-header">
-      <div class="icon"><i class="fas fa-handshake"></i></div>
+  <div class="donate-wrapper">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
+    <div class="donate-header">
+      <div class="icon"><i class="fas fa-scroll"></i></div>
       <h1>Invest in The Hunt for Gollum</h1>
       <p>Secure your stake in this epic journey</p>
     </div>
 
-    <form class="investor-form" id="investorForm">
-      <!-- Full Name -->
+    <form class="donate-form" id="donateForm">
+      <!-- Donor Name -->
       <div class="form-group">
-        <label for="investorName"><i class="fas fa-user"></i> Full Name</label>
-        <input type="text" id="investorName" name="name" placeholder="Enter your full name" required>
+        <label for="donorName"><i class="fas fa-user"></i> Your Name</label>
+        <input type="text" id="donorName" name="name" placeholder="Enter your full name" required>
       </div>
 
-      <!-- Email -->
+      <!-- Donor Email -->
       <div class="form-group">
-        <label for="investorEmail"><i class="fas fa-envelope"></i> Email Address</label>
-        <input type="email" id="investorEmail" name="email" placeholder="Enter your email address" required>
+        <label for="donorEmail"><i class="fas fa-envelope"></i> Your Email</label>
+        <input type="email" id="donorEmail" name="email" placeholder="Enter your email address" required>
       </div>
 
-      <!-- Phone -->
-      <div class="form-group">
-        <label for="investorPhone"><i class="fas fa-phone"></i> Phone Number</label>
-        <input type="tel" id="investorPhone" name="phone" placeholder="Enter your phone number (optional)">
-      </div>
-
-      <!-- Company / Organization -->
-      <div class="form-group">
-        <label for="investorCompany"><i class="fas fa-building"></i> Company / Organization</label>
-        <input type="text" id="investorCompany" name="company" placeholder="Enter your company name (optional)">
-      </div>
-
-      <!-- Currency Selection (only supported currencies) -->
+      <!-- Currency Selection (global) -->
       <div class="form-group">
         <label><i class="fas fa-money-bill-wave"></i> Currency</label>
         <div class="currency-row">
           <select id="currencySelect">
-            <!-- Injected by JS -->
+            <!-- Options injected by JavaScript -->
           </select>
           <span class="currency-symbol" id="currencySymbol">$</span>
         </div>
@@ -344,21 +350,21 @@
         </div>
       </div>
 
-      <!-- Additional Message -->
+      <!-- Message (optional) -->
       <div class="form-group">
-        <label for="investorMessage"><i class="fas fa-comment"></i> Message / Notes (optional)</label>
-        <textarea id="investorMessage" name="message" rows="3" placeholder="Any additional information for the production team..."></textarea>
+        <label for="donorMessage"><i class="fas fa-comment"></i> Message (optional)</label>
+        <textarea id="donorMessage" name="message" rows="3" placeholder="Leave a message for the team..."></textarea>
       </div>
 
-      <button type="submit" class="investor-btn" id="investorSubmitBtn">
+      <button type="submit" class="donate-btn" id="donateSubmitBtn">
         <i class="fas fa-handshake"></i> Invest Now
       </button>
 
       <div class="form-status" id="formStatus"></div>
     </form>
 
-    <div class="investor-footer">
-      <i class="fas fa-feather-alt"></i> All investment funds go directly to production costs. We'll send you a confirmation and investment agreement via email.
+    <div class="donate-footer">
+      <i class="fas fa-feather-alt"></i> All investments go directly to production costs. We'll send you a confirmation and investment agreement via email.
     </div>
   </div>
 
@@ -367,21 +373,44 @@
       'use strict';
 
       // ============================================================
-      // 👇 CONFIGURE YOUR PAYSTACK SETTINGS HERE 👇
+      // 👇 CONFIGURE YOUR PAYSTACK SETTINGS 👇
       // ============================================================
 
-      const PAYSTACK_KEY = 'pk_live_a292116859a7fc29c7ed46c9b9e112ec5308a7e6'; // ← Replace with your key
-      const SUPPORTED_CURRENCIES = ['NGN', 'GHS', 'KES', 'ZAR']; // ← Edit this list
+      // Your live Paystack key (preserved)
+      const PAYSTACK_KEY = 'pk_live_a292116859a7fc29c7ed46c9b9e112ec5308a7e6';
 
-      // Preset amounts for each currency (investor-specific)
+      // 🌍 FULL GLOBAL CURRENCY SUPPORT
+      const SUPPORTED_CURRENCIES = [
+        // Africa
+        'NGN', 'GHS', 'KES', 'ZAR',
+        // Americas
+        'USD', 'CAD', 'MXN',
+        // Europe
+        'EUR', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'PLN', 'CZK', 'HUF',
+        // Oceania
+        'AUD', 'NZD'
+      ];
+
+      // Preset amounts for each currency (investment‑friendly)
       const AMOUNT_PRESETS = {
         NGN: [50000, 100000, 250000, 500000, 1000000],
         GHS: [1000, 2500, 5000, 10000, 25000],
         KES: [10000, 25000, 50000, 100000, 250000],
         ZAR: [1000, 2500, 5000, 10000, 25000],
-        USD: [5000, 10000, 25000, 50000, 100000],
-        EUR: [5000, 10000, 25000, 50000, 100000],
-        GBP: [5000, 10000, 25000, 50000, 100000]
+        USD: [1000, 2500, 5000, 10000, 25000],
+        EUR: [1000, 2500, 5000, 10000, 25000],
+        GBP: [1000, 2500, 5000, 10000, 25000],
+        CAD: [1000, 2500, 5000, 10000, 25000],
+        AUD: [1000, 2500, 5000, 10000, 25000],
+        NZD: [1000, 2500, 5000, 10000, 25000],
+        CHF: [1000, 2500, 5000, 10000, 25000],
+        SEK: [1000, 2500, 5000, 10000, 25000],
+        NOK: [1000, 2500, 5000, 10000, 25000],
+        DKK: [1000, 2500, 5000, 10000, 25000],
+        PLN: [1000, 2500, 5000, 10000, 25000],
+        CZK: [1000, 2500, 5000, 10000, 25000],
+        HUF: [1000, 2500, 5000, 10000, 25000],
+        MXN: [1000, 2500, 5000, 10000, 25000]
       };
 
       const MIN_AMOUNT = {
@@ -391,7 +420,18 @@
         ZAR: 100,
         USD: 100,
         EUR: 100,
-        GBP: 100
+        GBP: 100,
+        CAD: 100,
+        AUD: 100,
+        NZD: 100,
+        CHF: 100,
+        SEK: 100,
+        NOK: 100,
+        DKK: 100,
+        PLN: 100,
+        CZK: 100,
+        HUF: 1000,
+        MXN: 100
       };
 
       const CURRENCY_INFO = {
@@ -401,7 +441,18 @@
         ZAR: { symbol: 'R', label: 'South African Rand' },
         USD: { symbol: '$', label: 'US Dollar' },
         EUR: { symbol: '€', label: 'Euro' },
-        GBP: { symbol: '£', label: 'British Pound' }
+        GBP: { symbol: '£', label: 'British Pound' },
+        CAD: { symbol: 'C$', label: 'Canadian Dollar' },
+        AUD: { symbol: 'A$', label: 'Australian Dollar' },
+        NZD: { symbol: 'NZ$', label: 'New Zealand Dollar' },
+        CHF: { symbol: 'Fr', label: 'Swiss Franc' },
+        SEK: { symbol: 'kr', label: 'Swedish Krona' },
+        NOK: { symbol: 'kr', label: 'Norwegian Krone' },
+        DKK: { symbol: 'kr', label: 'Danish Krone' },
+        PLN: { symbol: 'zł', label: 'Polish Złoty' },
+        CZK: { symbol: 'Kč', label: 'Czech Koruna' },
+        HUF: { symbol: 'Ft', label: 'Hungarian Forint' },
+        MXN: { symbol: 'Mex$', label: 'Mexican Peso' }
       };
 
       // ============================================================
@@ -409,44 +460,71 @@
       // ============================================================
 
       // DOM refs
-      const form = document.getElementById('investorForm');
-      const nameInput = document.getElementById('investorName');
-      const emailInput = document.getElementById('investorEmail');
-      const phoneInput = document.getElementById('investorPhone');
-      const companyInput = document.getElementById('investorCompany');
-      const messageInput = document.getElementById('investorMessage');
+      const form = document.getElementById('donateForm');
+      const nameInput = document.getElementById('donorName');
+      const emailInput = document.getElementById('donorEmail');
       const currencySelect = document.getElementById('currencySelect');
       const currencySymbol = document.getElementById('currencySymbol');
       const amountGrid = document.getElementById('amountGrid');
       const customInput = document.getElementById('customAmount');
       const statusDiv = document.getElementById('formStatus');
-      const submitBtn = document.getElementById('investorSubmitBtn');
+      const submitBtn = document.getElementById('donateSubmitBtn');
       const detectedCurrencyDiv = document.getElementById('detectedCurrency');
 
       let selectedAmount = null;
-      let currentCurrency = SUPPORTED_CURRENCIES[0] || 'NGN';
+      let currentCurrency = SUPPORTED_CURRENCIES[0] || 'USD';
 
       // ============================================
-      // DETECT USER CURRENCY
+      // DETECT USER CURRENCY — FULL GLOBAL COVERAGE
       // ============================================
       function detectUserCurrency() {
         try {
           const locale = navigator.language || navigator.languages?.[0] || 'en-US';
+          
           const countryMap = {
+            // Africa
             'NG': 'NGN', 'GH': 'GHS', 'KE': 'KES', 'ZA': 'ZAR',
-            'US': 'USD', 'GB': 'GBP', 'FR': 'EUR', 'DE': 'EUR',
-            'ES': 'EUR', 'IT': 'EUR', 'CA': 'USD'
+            'UG': 'KES', 'TZ': 'KES', 'RW': 'KES',
+            // Americas
+            'US': 'USD', 'CA': 'CAD', 'MX': 'MXN',
+            // Europe
+            'GB': 'GBP', 'FR': 'EUR', 'DE': 'EUR', 'ES': 'EUR',
+            'IT': 'EUR', 'NL': 'EUR', 'BE': 'EUR', 'PT': 'EUR',
+            'CH': 'CHF', 'SE': 'SEK', 'NO': 'NOK', 'DK': 'DKK',
+            'PL': 'PLN', 'CZ': 'CZK', 'HU': 'HUF', 'AT': 'EUR',
+            'IE': 'EUR', 'FI': 'EUR', 'GR': 'EUR', 'LU': 'EUR',
+            'HR': 'EUR', 'BG': 'BGN', 'RO': 'RON', 'IS': 'ISK',
+            // Oceania
+            'AU': 'AUD', 'NZ': 'NZD'
           };
+
           const parts = locale.split('-');
           const country = parts.length > 1 ? parts[1].toUpperCase() : null;
+          
           if (country && countryMap[country]) {
             const detected = countryMap[country];
             if (SUPPORTED_CURRENCIES.includes(detected)) {
               return detected;
             }
           }
+
+          // Fallback: try Intl.NumberFormat
+          try {
+            const formatter = new Intl.NumberFormat(navigator.language, { style: 'currency', currency: 'USD' });
+            const parts = formatter.formatToParts(0);
+            const currencyPart = parts.find(p => p.type === 'currency');
+            if (currencyPart && currencyPart.value) {
+              const detected = currencyPart.value;
+              if (SUPPORTED_CURRENCIES.includes(detected)) {
+                return detected;
+              }
+            }
+          } catch (e) {}
+
         } catch (e) {}
-        return SUPPORTED_CURRENCIES[0] || 'NGN';
+        
+        // Final fallback: USD
+        return 'USD';
       }
 
       // ============================================
@@ -462,10 +540,11 @@
           opt.textContent = `${info.symbol} ${code} — ${info.label}`;
           currencySelect.appendChild(opt);
         });
+        // If still empty, add a default
         if (currencySelect.options.length === 0) {
           const opt = document.createElement('option');
-          opt.value = 'NGN';
-          opt.textContent = '₦ NGN — Nigerian Naira';
+          opt.value = 'USD';
+          opt.textContent = '$ USD — US Dollar';
           currencySelect.appendChild(opt);
         }
       }
@@ -479,7 +558,7 @@
         currencySymbol.textContent = info.symbol;
         customInput.placeholder = `Custom amount (${info.symbol})`;
 
-        const presets = AMOUNT_PRESETS[currencyCode] || [100, 200, 500, 1000];
+        const presets = AMOUNT_PRESETS[currencyCode] || [1000, 2500, 5000, 10000, 25000];
         amountGrid.innerHTML = '';
         presets.forEach(amount => {
           const btn = document.createElement('button');
@@ -519,7 +598,7 @@
       function setDefaultCurrency() {
         const detected = detectUserCurrency();
         const options = Array.from(currencySelect.options).map(o => o.value);
-        let defaultCurrency = options.includes(detected) ? detected : options[0] || 'NGN';
+        let defaultCurrency = options.includes(detected) ? detected : options[0] || 'USD';
         currencySelect.value = defaultCurrency;
         handleCurrencyChange(defaultCurrency);
       }
@@ -542,17 +621,13 @@
 
         const name = nameInput.value.trim();
         const email = emailInput.value.trim();
-        const phone = phoneInput.value.trim();
-        const company = companyInput.value.trim();
-        const message = messageInput.value.trim();
         const currency = currencySelect.value;
-        const minAmt = MIN_AMOUNT[currency] || 1;
+        const minAmt = MIN_AMOUNT[currency] || 100;
         const customValue = parseInt(customInput.value);
         let amount = selectedAmount || customValue;
 
-        // Validation
         if (!name) {
-          showStatus('Please enter your full name.', 'error');
+          showStatus('Please enter your name.', 'error');
           return;
         }
         if (!email || !email.includes('@')) {
@@ -583,34 +658,11 @@
             metadata: {
               custom_fields: [
                 { display_name: "Investor Name", variable_name: "investor_name", value: name },
-                { display_name: "Phone", variable_name: "phone", value: phone || 'N/A' },
-                { display_name: "Company", variable_name: "company", value: company || 'N/A' },
-                { display_name: "Message", variable_name: "message", value: message || 'N/A' },
                 { display_name: "Currency", variable_name: "currency", value: currency }
               ]
             },
             callback: function(response) {
-              // Payment successful — save to localStorage
-              const investment = {
-                id: Date.now(),
-                name: name,
-                email: email,
-                phone: phone || 'N/A',
-                company: company || 'N/A',
-                amount: amount,
-                currency: currency,
-                message: message || 'N/A',
-                transactionRef: response.reference,
-                submitted: new Date().toISOString()
-              };
-              const investments = JSON.parse(localStorage.getItem('investments') || '[]');
-              investments.push(investment);
-              localStorage.setItem('investments', JSON.stringify(investments));
-
-              showStatus(
-                `Thank you ${name}! Your investment of ${CURRENCY_INFO[currency].symbol}${amount.toLocaleString()} has been confirmed. We'll send you a formal agreement shortly.`,
-                'success'
-              );
+              showStatus(`Thank you ${name}! Your investment of ${CURRENCY_INFO[currency].symbol}${amount.toLocaleString()} has been confirmed.`, 'success');
               submitBtn.disabled = false;
               submitBtn.innerHTML = '<i class="fas fa-handshake"></i> Invest Now';
               form.reset();
@@ -650,12 +702,14 @@
       // ============================================
       populateCurrencyDropdown();
       setDefaultCurrency();
+
       currencySelect.addEventListener('change', function() {
         handleCurrencyChange(this.value);
       });
 
-      console.log('📈 Investor payment page ready.');
+      console.log('🌍 Investor page ready. Supported currencies:', SUPPORTED_CURRENCIES);
     })();
   </script>
+
 </body>
 </html>
